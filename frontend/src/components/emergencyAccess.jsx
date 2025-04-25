@@ -84,11 +84,22 @@ function EmergencyAccess() {
                 <div className="patient-info" style={{ marginTop: '2rem' }}>
                     <h2>Patient Information</h2>
                     <p><strong>Name:</strong> {patientData.name}</p>
+                    <p><strong>Email:</strong> {patientData.email}</p>
                     <p><strong>Birthday:</strong> {patientData.dob}</p>
-                    <p><strong>Age:</strong> {patientData.age}</p>
                     <p><strong>Gender:</strong> {patientData.gender}</p>
+                    <p><strong>Weight:</strong> {patientData.weight} lbs</p>
+                    <p><strong>Height:</strong> {patientData.heightFeet}' {patientData.heightInches}"</p>
+
+                    <h3>Medical Info:</h3>
                     <p><strong>Symptoms:</strong> {patientData.symptoms}</p>
-                    {/* etc. */}
+                    <p><strong>Known Conditions:</strong> {patientData.conditions}</p>
+                    <p><strong>Allergies:</strong> {patientData.allergies}</p>
+                    <p><strong>Medications:</strong> {patientData.medications && patientData.medications.join(', ')}</p>
+
+                    <h3>Lifestyle Info:</h3>
+                    <p><strong>Smoking:</strong> {patientData.smoking}</p>
+                    <p><strong>Alcohol:</strong> {patientData.alcohol}</p>
+                    <p><strong>Exercise:</strong> {patientData.exercise}</p>
                 </div>
             )}
         </div>

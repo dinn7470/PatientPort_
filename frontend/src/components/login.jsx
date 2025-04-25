@@ -1,10 +1,36 @@
 // components/Login.jsx
 import React from 'react';
 
-function Login({ formData, setFormData, handleLogin, goBack }) {
+function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch('http://localhost:5000/api/patient/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password
+                })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                setPatientData(data.patient); // Save the patient data into state
+                setStep(7); // Go to Confirmation/Profile page
+            } else {
+                alert('Login failed: ' + data.message);
+            }
+        } catch (err) {
+            console.error('Login error:', err);
+            alert('Something went wrong.');
+        }
     };
 
     return (
