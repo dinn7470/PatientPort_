@@ -1,26 +1,33 @@
+// frontend/src/components/Confirmation.jsx
 import React from 'react';
 
-function Confirmation({ formData }) {
-    return (
-        <div className="confirmation-page">
-            <h2>Submission Summary</h2>
-            <p><strong>Name:</strong> {formData.name}</p>
-            <p><strong>Email:</strong> {formData.email}</p>
-            <p><strong>Weight:</strong> {formData.weight}</p>
-            <p><strong>Height:</strong> {formData.heightFeet}'{formData.heightInches}"</p>
-            <p><strong>Gender:</strong> {formData.gender}</p>
-            <p><strong>Symptoms:</strong> {formData.symptoms}</p>
-            <p><strong>Medications:</strong> {formData.medications.join(', ')}</p>
-            <p><strong>Conditions:</strong> {formData.conditions}</p>
-            <p><strong>Allergies:</strong> {formData.allergies}</p>
-            <p><strong>Medications Text:</strong> {formData.medicationsText}</p>
-            <p><strong>Smoking:</strong> {formData.smoking}</p>
-            <p><strong>Alcohol:</strong> {formData.alcohol}</p>
-            <p><strong>Exercise:</strong> {formData.exercise}</p>
+function Confirmation({ patientData }) {
+        if (!patientData) {
+                return <div>No patient data found. Please log in again.</div>;
+        }
 
-            <p>✅ Your information has been submitted and saved!</p>
-        </div>
-    );
+        return (
+            <div className="confirmation">
+                    <h2>Welcome, {patientData.name}!</h2>
+
+                    <p><strong>Email:</strong> {patientData.email}</p>
+                    <p><strong>Birthday:</strong> {patientData.dob}</p>
+                    <p><strong>Gender:</strong> {patientData.gender}</p>
+                    <p><strong>Weight:</strong> {patientData.weight} lbs</p>
+                    <p><strong>Height:</strong> {patientData.heightFeet}' {patientData.heightInches}"</p>
+
+                    <h3>Medical Info</h3>
+                    <p><strong>Symptoms:</strong> {patientData.symptoms}</p>
+                    <p><strong>Conditions:</strong> {patientData.conditions}</p>
+                    <p><strong>Allergies:</strong> {patientData.allergies}</p>
+                    <p><strong>Medications:</strong> {patientData.medications && patientData.medications.join(', ')}</p>
+
+                    <h3>Lifestyle Info</h3>
+                    <p><strong>Smoking:</strong> {patientData.smoking}</p>
+                    <p><strong>Alcohol:</strong> {patientData.alcohol}</p>
+                    <p><strong>Exercise:</strong> {patientData.exercise}</p>
+            </div>
+        );
 }
 
 export default Confirmation;

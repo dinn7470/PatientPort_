@@ -1,11 +1,12 @@
+// frontend/src/App.jsx
 import { useState } from 'react';
 import Welcome from './components/Welcome.jsx';
 import Login from './components/Login.jsx';
-import PatientInfo from './components/PatientForm.jsx';
+import PatientForm from './components/PatientForm.jsx';
 import MedicalInfo from './components/MedicalInfo.jsx';
 import LifestyleInfo from './components/LifestyleInfo.jsx';
 import Confirmation from './components/Confirmation.jsx';
-import EmergencyAccess from './components/EmergencyAccess.jsx'; // ✅ NEW
+import EmergencyAccess from './components/EmergencyAccess.jsx';
 import './App.css';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         exercise: ''
     });
 
+    const [patientData, setPatientData] = useState(null); // 🆕 For logged-in patient
 
     // Navigation functions
     const nextStep = () => setStep((prev) => prev + 1);
@@ -37,24 +39,17 @@ function App() {
     const goToLogin = () => setStep(2);
     const goToSignup = () => setStep(3);
     const goBackToWelcome = () => setStep(1);
-    const goToEmergencyAccess = () => setStep(7); // ✅ NEW
-
-    // Dummy login (can replace with real login later)
-    const handleLogin = (e) => {
-        e.preventDefault();
-        console.log('Logging in with:', formData.email, formData.password);
-        alert('Logged in (dummy action)');
-    };
+    const goToEmergency = () => setStep(6);
 
     return (
         <div className="app-container">
-            <h1>Patient Intake Form</h1>
+            <h1>Patient Intake Portal</h1>
 
             {step === 1 && (
                 <Welcome
                     goToLogin={goToLogin}
                     goToSignup={goToSignup}
-                    goToEmergencyAccess={goToEmergencyAccess} // ✅ NEW
+                    goToEmergency={goToEmergency}
                 />
             )}
 
@@ -62,13 +57,14 @@ function App() {
                 <Login
                     formData={formData}
                     setFormData={setFormData}
-                    handleLogin={handleLogin}
+                    setPatientData={setPatientData}
+                    setStep={setStep}
                     goBack={goBackToWelcome}
                 />
             )}
 
             {step === 3 && (
-                <PatientInfo
+                <PatientForm
                     formData={formData}
                     setFormData={setFormData}
                     nextStep={nextStep}
@@ -90,18 +86,16 @@ function App() {
                     formData={formData}
                     setFormData={setFormData}
                     prevStep={prevStep}
-                    nextStep={nextStep}
+                    nextStep={nextStep} // After LifestyleInfo, it submits and shows Confirmation
                 />
             )}
 
             {step === 6 && (
-                <Confirmation
-                    formData={formData}
-                />
+                <EmergencyAccess />
             )}
 
             {step === 7 && (
-                <EmergencyAccess />
+                <Confirmation patientData={patientData} />
             )}
         </div>
     );
