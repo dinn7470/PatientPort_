@@ -3,7 +3,7 @@ import React from 'react';
 function Welcome({ goToLogin, goToSignup, goToEmergencyAccess }) {
     return (
         <div className="welcome-page">
-            <h2>Welcome to Prescripto</h2>
+            <h2>Welcome to PatientPort</h2>
             <p>Please choose an option to continue:</p>
 
             <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
