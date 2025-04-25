@@ -1,7 +1,7 @@
-// This is Step 3: LifestyleInfo.jsx
+// This is Step 5: LifestyleInfo.jsx
 import React from 'react';
 
-function LifestyleInfo({ formData, setFormData, prevStep }) {
+function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -17,23 +17,32 @@ function LifestyleInfo({ formData, setFormData, prevStep }) {
         };
 
         try {
-            const res = await fetch('/api/patient', {
+            const res = await fetch('http://localhost:5000/api/patient', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(fullFormData)
             });
+
             const data = await res.json();
-            alert(data.message);
+
+            if (data.success) {
+                alert('✅ Form submitted successfully!');
+                nextStep(); // Move to Confirmation page
+            } else {
+                alert('⚠️ Error submitting form: ' + data.message);
+            }
         } catch (err) {
-            console.error(err);
-            alert("Something went wrong.");
+            console.error('❌ Submit error:', err);
+            alert('Something went wrong.');
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="patient-form">
+            <h2>Lifestyle Information</h2>
+
             <label>Smoking Status:</label>
-            <select name="smoking" value={formData.smoking || ''} onChange={handleChange}>
+            <select name="smoking" value={formData.smoking || ''} onChange={handleChange} required>
                 <option value="">Select...</option>
                 <option value="never">Never</option>
                 <option value="former">Former</option>
@@ -41,7 +50,7 @@ function LifestyleInfo({ formData, setFormData, prevStep }) {
             </select>
 
             <label>Alcohol Consumption:</label>
-            <select name="alcohol" value={formData.alcohol || ''} onChange={handleChange}>
+            <select name="alcohol" value={formData.alcohol || ''} onChange={handleChange} required>
                 <option value="">Select...</option>
                 <option value="none">None</option>
                 <option value="moderate">Moderate</option>
@@ -49,7 +58,12 @@ function LifestyleInfo({ formData, setFormData, prevStep }) {
             </select>
 
             <label>Exercise Frequency:</label>
-            <input name="exercise" value={formData.exercise || ''} onChange={handleChange} />
+            <input
+                name="exercise"
+                value={formData.exercise || ''}
+                onChange={handleChange}
+                required
+            />
 
             <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                 <button type="button" onClick={prevStep}>Back</button>
