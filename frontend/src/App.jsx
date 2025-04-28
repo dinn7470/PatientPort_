@@ -5,12 +5,13 @@ import Login from './components/Login.jsx';
 import PatientForm from './components/PatientForm.jsx';
 import MedicalInfo from './components/MedicalInfo.jsx';
 import LifestyleInfo from './components/LifestyleInfo.jsx';
-import Confirmation from './components/Confirmation.jsx';
 import EmergencyAccess from './components/EmergencyAccess.jsx';
+import Confirmation from './components/Confirmation.jsx';
 import './App.css';
 
 function App() {
     const [step, setStep] = useState(1);
+    const [accessType, setAccessType] = useState('patient');
 
     const [formData, setFormData] = useState({
         name: '',
@@ -31,9 +32,9 @@ function App() {
         exercise: ''
     });
 
-    const [patientData, setPatientData] = useState(null); // 🆕 For logged-in patient
+    const [patientData, setPatientData] = useState(null);
 
-    // Navigation functions
+    // Step Navigation
     const nextStep = () => setStep((prev) => prev + 1);
     const prevStep = () => setStep((prev) => prev - 1);
     const goToLogin = () => setStep(2);
@@ -43,13 +44,12 @@ function App() {
 
     return (
         <div className="app-container">
-            <h1>Patient Intake Portal</h1>
 
             {step === 1 && (
                 <Welcome
                     goToLogin={goToLogin}
                     goToSignup={goToSignup}
-                    goToEmergency={goToEmergency}
+                    goToEmergencyAccess={goToEmergency}
                 />
             )}
 
@@ -58,6 +58,7 @@ function App() {
                     formData={formData}
                     setFormData={setFormData}
                     setPatientData={setPatientData}
+                    setAccessType={setAccessType}
                     setStep={setStep}
                     goBack={goBackToWelcome}
                 />
@@ -86,16 +87,26 @@ function App() {
                     formData={formData}
                     setFormData={setFormData}
                     prevStep={prevStep}
-                    nextStep={nextStep} // After LifestyleInfo, it submits and shows Confirmation
+                    setPatientData={setPatientData}
+                    setAccessType={setAccessType}
+                    setStep={setStep}
                 />
             )}
 
             {step === 6 && (
-                <EmergencyAccess />
+                <EmergencyAccess
+                    setPatientData={setPatientData}
+                    setAccessType={setAccessType}
+                    setStep={setStep}
+                />
             )}
 
             {step === 7 && (
-                <Confirmation patientData={patientData} />
+                <Confirmation
+                    patientData={patientData}
+                    setPatientData={setPatientData}
+                    accessType={accessType}
+                />
             )}
         </div>
     );
