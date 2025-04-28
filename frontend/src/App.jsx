@@ -49,66 +49,69 @@ function App() {
 
             <main className="app-main">
             <div className="app-container">
-  {step === 1 && (
-    <Welcome
-      goToLogin={goToLogin}
-      goToSignup={goToSignup}
-      goToEmergency={goToEmergency}
-    />
-  )}
+            {step === 1 && (
+                <Welcome
+                goToLogin={goToLogin}
+                goToSignup={goToSignup}
+                goToEmergency={goToEmergency}
+                />
+            )}
 
-  {step === 2 && (
-    <Login
-      formData={formData}
-      setFormData={setFormData}
-      setPatientData={setPatientData}
-      setStep={setStep}
-      goBack={goBackToWelcome}
-    />
-  )}
+            {step === 2 && (
+                <Login
+                formData={formData}
+                setFormData={setFormData}
+                setPatientData={setPatientData}
+                setStep={setStep}
+                goBack={goBackToWelcome}
+                />
+            )}
 
-  {step === 3 && (
-    <PatientForm
-      formData={formData}
-      setFormData={setFormData}
-      nextStep={nextStep}
-      prevStep={goBackToWelcome}
-    />
-  )}
+            {step === 3 && (
+                <PatientForm
+                formData={formData}
+                setFormData={setFormData}
+                nextStep={nextStep}
+                prevStep={goBackToWelcome}
+                />
+            )}
 
-  {step === 4 && (
-    <MedicalInfo
-      formData={formData}
-      setFormData={setFormData}
-      nextStep={nextStep}
-      prevStep={prevStep}
-    />
-  )}
+            {step === 4 && (
+                <MedicalInfo
+                formData={formData}
+                setFormData={setFormData}
+                nextStep={nextStep}
+                prevStep={prevStep}
+                />
+            )}
 
-  {step === 5 && (
-    <LifestyleInfo
-      formData={formData}
-      setFormData={setFormData}
-      prevStep={prevStep}
-      nextStep={nextStep}
-    />
-  )}
+            {step === 5 && (
+                <LifestyleInfo
+                formData={formData}
+                setFormData={setFormData}
+                prevStep={prevStep}
+                nextStep={nextStep}
+                />
+            )}
 
-  {step === 6 && (
-    <EmergencyAccess />
-  )}
+            {step === 6 && (
+                <EmergencyAccess />
+            )}
 
-  {step === 7 && (
-    <Confirmation patientData={patientData} />
-  )}
+            {step === 7 && (
+                <Confirmation patientData={patientData} />
+            )}
+           {/* erro message */}
+            {(step < 1 || step > 7) && (
+            <div style={{ textAlign: 'center', marginTop: '2rem', color: 'red' }}>
+                <h2>Oops! Something went wrong.</h2>
+                <button onClick={goBackToWelcome}>Return to Home</button>
+            </div>
+            )}
 
-  {/* ADD THIS BELOW ALL STEPS */}
-  {step < 1 || step > 7 ? (
-    <h2 style={{ textAlign: "center", color: "red" }}>
-      Invalid step: {step}
-    </h2>
-  ) : null}
-</div>
+           
+           
+            </div>
 
             </main>
 
