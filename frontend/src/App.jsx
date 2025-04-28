@@ -31,7 +31,7 @@ function App() {
         exercise: ''
     });
 
-    const [patientData, setPatientData] = useState(null); // 🆕 For logged-in patient
+    const [patientData, setPatientData] = useState(null);
 
     // Navigation functions
     const nextStep = () => setStep((prev) => prev + 1);
@@ -42,62 +42,80 @@ function App() {
     const goToEmergency = () => setStep(6);
 
     return (
-        <div className="app-container">
-            <h1>Patient Intake Portal</h1>
+        <>
+            <header className="app-header">
+                <h1>Patient Portal</h1>
+            </header>
 
-            {step === 1 && (
-                <Welcome
-                    goToLogin={goToLogin}
-                    goToSignup={goToSignup}
-                    goToEmergency={goToEmergency}
-                />
-            )}
+            <main className="app-main">
+            <div className="app-container">
+  {step === 1 && (
+    <Welcome
+      goToLogin={goToLogin}
+      goToSignup={goToSignup}
+      goToEmergency={goToEmergency}
+    />
+  )}
 
-            {step === 2 && (
-                <Login
-                    formData={formData}
-                    setFormData={setFormData}
-                    setPatientData={setPatientData}
-                    setStep={setStep}
-                    goBack={goBackToWelcome}
-                />
-            )}
+  {step === 2 && (
+    <Login
+      formData={formData}
+      setFormData={setFormData}
+      setPatientData={setPatientData}
+      setStep={setStep}
+      goBack={goBackToWelcome}
+    />
+  )}
 
-            {step === 3 && (
-                <PatientForm
-                    formData={formData}
-                    setFormData={setFormData}
-                    nextStep={nextStep}
-                    prevStep={goBackToWelcome}
-                />
-            )}
+  {step === 3 && (
+    <PatientForm
+      formData={formData}
+      setFormData={setFormData}
+      nextStep={nextStep}
+      prevStep={goBackToWelcome}
+    />
+  )}
 
-            {step === 4 && (
-                <MedicalInfo
-                    formData={formData}
-                    setFormData={setFormData}
-                    nextStep={nextStep}
-                    prevStep={prevStep}
-                />
-            )}
+  {step === 4 && (
+    <MedicalInfo
+      formData={formData}
+      setFormData={setFormData}
+      nextStep={nextStep}
+      prevStep={prevStep}
+    />
+  )}
 
-            {step === 5 && (
-                <LifestyleInfo
-                    formData={formData}
-                    setFormData={setFormData}
-                    prevStep={prevStep}
-                    nextStep={nextStep} // After LifestyleInfo, it submits and shows Confirmation
-                />
-            )}
+  {step === 5 && (
+    <LifestyleInfo
+      formData={formData}
+      setFormData={setFormData}
+      prevStep={prevStep}
+      nextStep={nextStep}
+    />
+  )}
 
-            {step === 6 && (
-                <EmergencyAccess />
-            )}
+  {step === 6 && (
+    <EmergencyAccess />
+  )}
 
-            {step === 7 && (
-                <Confirmation patientData={patientData} />
-            )}
-        </div>
+  {step === 7 && (
+    <Confirmation patientData={patientData} />
+  )}
+
+  {/* ADD THIS BELOW ALL STEPS */}
+  {step < 1 || step > 7 ? (
+    <h2 style={{ textAlign: "center", color: "red" }}>
+      Invalid step: {step}
+    </h2>
+  ) : null}
+</div>
+
+            </main>
+
+            <footer className="app-footer">
+                <p>© 2025 Patient Portal. All rights reserved.</p>
+            </footer>
+        </>
     );
 }
 
