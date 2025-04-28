@@ -30,4 +30,4 @@ function MedicalInfo({ formData, setFormData, nextStep, prevStep }) {
     );
 }
 
-export default MedicalInfo;
+export default MedicalInfo

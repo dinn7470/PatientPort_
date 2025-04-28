@@ -5,12 +5,13 @@ import Login from './components/Login.jsx';
 import PatientForm from './components/PatientForm.jsx';
 import MedicalInfo from './components/MedicalInfo.jsx';
 import LifestyleInfo from './components/LifestyleInfo.jsx';
-import Confirmation from './components/Confirmation.jsx';
 import EmergencyAccess from './components/EmergencyAccess.jsx';
+import Confirmation from './components/Confirmation.jsx';
 import './App.css';
 
 function App() {
     const [step, setStep] = useState(1);
+    const [accessType, setAccessType] = useState('patient');
 
     const [formData, setFormData] = useState({
         name: '',
@@ -33,7 +34,7 @@ function App() {
 
     const [patientData, setPatientData] = useState(null);
 
-    // Navigation functions
+    // Step Navigation
     const nextStep = () => setStep((prev) => prev + 1);
     const prevStep = () => setStep((prev) => prev - 1);
     const goToLogin = () => setStep(2);
@@ -42,28 +43,47 @@ function App() {
     const goToEmergency = () => setStep(6);
 
     return (
+<<<<<<< HEAD
         <>
             <header className="app-header">
                 <h1>Patient Portal</h1>
             </header>
+=======
+        <div className="app-container">
+>>>>>>> bb0e8517287e629b07ff22410b8aa21642d3bad5
 
             <main className="app-main">
             <div className="app-container">
             {step === 1 && (
                 <Welcome
+<<<<<<< HEAD
                 goToLogin={goToLogin}
                 goToSignup={goToSignup}
                 goToEmergency={goToEmergency}
+=======
+                    goToLogin={goToLogin}
+                    goToSignup={goToSignup}
+                    goToEmergencyAccess={goToEmergency}
+>>>>>>> bb0e8517287e629b07ff22410b8aa21642d3bad5
                 />
             )}
 
             {step === 2 && (
                 <Login
+<<<<<<< HEAD
                 formData={formData}
                 setFormData={setFormData}
                 setPatientData={setPatientData}
                 setStep={setStep}
                 goBack={goBackToWelcome}
+=======
+                    formData={formData}
+                    setFormData={setFormData}
+                    setPatientData={setPatientData}
+                    setAccessType={setAccessType}
+                    setStep={setStep}
+                    goBack={goBackToWelcome}
+>>>>>>> bb0e8517287e629b07ff22410b8aa21642d3bad5
                 />
             )}
 
@@ -87,19 +107,36 @@ function App() {
 
             {step === 5 && (
                 <LifestyleInfo
+<<<<<<< HEAD
                 formData={formData}
                 setFormData={setFormData}
                 prevStep={prevStep}
                 nextStep={nextStep}
+=======
+                    formData={formData}
+                    setFormData={setFormData}
+                    prevStep={prevStep}
+                    setPatientData={setPatientData}
+                    setAccessType={setAccessType}
+                    setStep={setStep}
+>>>>>>> bb0e8517287e629b07ff22410b8aa21642d3bad5
                 />
             )}
 
             {step === 6 && (
-                <EmergencyAccess />
+                <EmergencyAccess
+                    setPatientData={setPatientData}
+                    setAccessType={setAccessType}
+                    setStep={setStep}
+                />
             )}
 
             {step === 7 && (
-                <Confirmation patientData={patientData} />
+                <Confirmation
+                    patientData={patientData}
+                    setPatientData={setPatientData}
+                    accessType={accessType}
+                />
             )}
            {/* erro message */}
             {(step < 1 || step > 7) && (

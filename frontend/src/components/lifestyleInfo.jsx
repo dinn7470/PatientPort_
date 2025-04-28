@@ -1,7 +1,6 @@
-// This is Step 5: LifestyleInfo.jsx
 import React from 'react';
 
-function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
+function LifestyleInfo({ formData, setFormData, prevStep, nextStep, setPatientData, setStep }) { // <-- added setStep
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -13,7 +12,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
 
         const fullFormData = {
             ...formData,
-            height: `${formData.heightFeet}'${formData.heightInches}"`
+            height: `${formData.heightFeet}'${formData.heightInches}"`, // Keep combining height
         };
 
         try {
@@ -22,27 +21,25 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(fullFormData)
             });
-
             const data = await res.json();
 
             if (data.success) {
-                alert('✅ Form submitted successfully!');
-                nextStep(); // Move to Confirmation page
+                alert('Form submitted successfully!');
+                setPatientData(fullFormData);
+                setStep(7);  // 🛠 Go straight to Confirmation
             } else {
-                alert('⚠️ Error submitting form: ' + data.message);
+                alert('Error submitting form');
             }
         } catch (err) {
-            console.error(' Submit error:', err);
+            console.error('Submit error:', err);
             alert('Something went wrong.');
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="patient-form">
-            <h2>Lifestyle Information</h2>
-
             <label>Smoking Status:</label>
-            <select name="smoking" value={formData.smoking || ''} onChange={handleChange} required>
+            <select name="smoking" value={formData.smoking || ''} onChange={handleChange}>
                 <option value="">Select...</option>
                 <option value="never">Never</option>
                 <option value="former">Former</option>
@@ -50,7 +47,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
             </select>
 
             <label>Alcohol Consumption:</label>
-            <select name="alcohol" value={formData.alcohol || ''} onChange={handleChange} required>
+            <select name="alcohol" value={formData.alcohol || ''} onChange={handleChange}>
                 <option value="">Select...</option>
                 <option value="none">None</option>
                 <option value="moderate">Moderate</option>
@@ -58,12 +55,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
             </select>
 
             <label>Exercise Frequency:</label>
-            <input
-                name="exercise"
-                value={formData.exercise || ''}
-                onChange={handleChange}
-                required
-            />
+            <input name="exercise" value={formData.exercise || ''} onChange={handleChange} />
 
             <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                 <button type="button" onClick={prevStep}>Back</button>
