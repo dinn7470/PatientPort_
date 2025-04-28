@@ -12,7 +12,10 @@ function Welcome({ goToLogin, goToSignup, goToEmergencyAccess }) {
             </div>
 
             <div style={{ marginTop: '2rem' }}>
-                <button onClick={goToEmergencyAccess} style={{ backgroundColor: '#f44336', color: 'white' }}>
+                <button
+                    onClick={goToEmergencyAccess}
+                    style={{ backgroundColor: '#f44336', color: 'white' }}
+                >
                     🚑 EMT Emergency Access
                 </button>
             </div>
