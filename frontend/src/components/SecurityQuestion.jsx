@@ -4,12 +4,12 @@ import './SecurityQuestion.css';
 function SecurityQuestion({ formData, setFormData, nextStep, prevStep }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value })); // Save immediately into formData
+        setFormData((prev) => ({ ...prev, [name]: value })); //  Save immediately into formData
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        nextStep(); // ✅ Move to ContactInfo step
+        nextStep(); // Move to ContactInfo step
     };
 
     return (

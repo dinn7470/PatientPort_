@@ -19,20 +19,42 @@ header, footer {
   width: 100%;
 }
 
+.logo {
+  height: 40px;  /* Reduce logo size for smaller screens */
+  width: auto;
+}
+
 .app-header {
-  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;  /* Ensures space between the title and logo */
+  align-items: center;             /* Vertically centers the content */
+  padding: 1rem 2rem;
   background-color: #ffffff;
-  text-align: center;
   border-bottom: 2px solid #4f8ef7;
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+
+
 .app-header h1 {
   margin: 0;
   font-size: 2.5rem;
   color: #2c3e50;
+  margin-left: 1rem;
+
 }
 
 /* Main content area */
@@ -75,14 +97,19 @@ header, footer {
   z-index: 5;
 }
 
-/* Responsive tweaks */
-@media (max-width: 1000px) {
-  .app-container {
-    padding: 2rem;
-    margin: 1rem;
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;  /* Stack title and logo on smaller screens */
+    align-items: center;     /* Center them */
   }
+ 
+   .logo {
+    height: 30px;
+    margin-top: 1rem;
+    }
+
 
   .app-header h1 {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
