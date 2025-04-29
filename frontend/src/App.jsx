@@ -44,6 +44,7 @@ function App() {
 
     return (
         <>
+        <body>
             <header className="app-header">
                 <h1>Patient Portal</h1>
             </header>
@@ -128,6 +129,7 @@ function App() {
             <footer className="app-footer">
                 <p>© 2025 Patient Portal. All rights reserved.</p>
             </footer>
+            </body>
         </>
     );
 }

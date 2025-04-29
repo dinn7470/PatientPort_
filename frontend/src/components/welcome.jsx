@@ -1,4 +1,5 @@
 import React from 'react';
+import './Welcome.css';
 
 function Welcome({ goToLogin, goToSignup, goToEmergencyAccess }) {
     return (
@@ -6,15 +7,15 @@ function Welcome({ goToLogin, goToSignup, goToEmergencyAccess }) {
             <h2>Welcome to PatientPort</h2>
             <p>Please choose an option to continue:</p>
 
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+            <div className="welcome-buttons">
                 <button onClick={goToLogin}>Log In</button>
                 <button onClick={goToSignup}>Sign Up</button>
             </div>
 
-            <div style={{ marginTop: '2rem' }}>
+            <div>
                 <button
                     onClick={goToEmergencyAccess}
-                    style={{ backgroundColor: '#f44336', color: 'white' }}
+                    
                 >
                     🚑 EMT Emergency Access
                 </button>

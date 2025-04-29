@@ -1,4 +1,5 @@
 import React from 'react';
+import './Confirmation.css';
 
 function Confirmation({ patientData }) {
     if (!patientData) {

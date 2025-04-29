@@ -1,5 +1,6 @@
 // components/Login.jsx
 import React from 'react';
+import './Login.css';
 
 function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
     const handleChange = (e) => {
@@ -55,7 +56,7 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
                 required
             />
 
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+            <div className="login-buttons">
                 <button type="button" onClick={goBack}>Back</button>
                 <button type="submit">Log In</button>
             </div>
