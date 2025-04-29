@@ -12,14 +12,14 @@ function Welcome({ goToLogin, goToSignup, setStep }) {
                 <button onClick={goToSignup}>Sign Up</button>
             </div>
 
-            <div className="emergency-access">
+           
                 <button
-                    onClick={() => setStep(6)} // ✅ NOW takes you to EmergencyAccess.jsx
+                    onClick={() => setStep(6)} 
                     className="emergency-button"
                 >
                     🚑 EMT Emergency Access
                 </button>
-            </div>
+            
         </div>
     );
 }
