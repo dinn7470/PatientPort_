@@ -5,7 +5,7 @@ function Welcome({ goToLogin, goToSignup, setStep }) {
     return (
         <div className="welcome-page">
             <h2>Welcome to PatientPort</h2>
-            <p>Access your healthcare information quickly and securely:</p>
+            <p>Where access to healthcare information is provided quickly and securely</p>
 
             <div className="welcome-buttons">
                 <button onClick={goToLogin}>Log In</button>
