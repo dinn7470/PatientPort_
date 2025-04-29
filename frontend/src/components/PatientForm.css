@@ -1,18 +1,26 @@
+/* ------------------------------
+   Layout: Navigation Buttons
+------------------------------ */
 .navigation-buttons {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
 .navigation-buttons button {
+  flex: 1;
+  min-width: 140px;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
-  flex: 1;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .navigation-buttons button:hover {
@@ -22,10 +30,65 @@
 @media (max-width: 600px) {
   .navigation-buttons {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
   }
 
   .navigation-buttons button {
     width: 100%;
+    min-width: unset;
   }
+}
+
+/* ------------------------------
+   Form Layout: General Inputs
+------------------------------ */
+.patient-form input,
+.patient-form select {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* ------------------------------
+   Password Input with Toggle
+------------------------------ */
+.password-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.password-container input {
+  flex: 1;
+}
+
+.password-container button {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.password-container button:hover {
+  background-color: #5a6268;
+}
+
+/* ------------------------------
+   Height Inputs: Feet & Inches
+------------------------------ */
+.height-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.height-container select {
+  flex: 1;
 }
