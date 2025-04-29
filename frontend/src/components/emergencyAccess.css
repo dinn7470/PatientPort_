@@ -76,17 +76,17 @@
   }
 
 .emergency-access button.back-button {
-  background-color: #f0f0f0;
-  color: #333;
-  border: 1px solid #ff0000;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.2s ease-in-out;
+  background-color: #f0f0f0;   /* Light gray background for the back button */
+  color: #333;                 /* Dark gray text color */
+  border: 1px solid #ccc;       /* Thin light gray border */
+  padding: 0.4rem 0.8rem;       /* Small padding inside the button */
+  font-size: 0.9rem;            /* Make the text a little smaller than default */
+  border-radius: 6px;           /* Rounded corners */
+  cursor: pointer;              /* Make cursor a pointer on hover */
+  margin-top: 1rem;             /* Add some space above the button */
+  transition: background-color 0.2s ease-in-out; /* Smooth hover color transition */
 }
 
 .emergency-access button.back-button:hover {
-  background-color: #e0e0e0;
+  background-color: #e0e0e0;   /* Slightly darker on hover */
 }
