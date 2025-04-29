@@ -2,17 +2,17 @@
 import React, { useState } from 'react';
 import './EmergencyAccess.css';
 
-function EmergencyAccess() {
-    const [step, setStep] = useState(1);
+function EmergencyAccess({ setPatientData, setStep, setAccessType }) {
+    const [step, setLocalStep] = useState(1); // Local step just for this form
     const [name, setName] = useState('');
     const [dob, setDob] = useState('');
     const [code, setCode] = useState('');
-    const [patientData, setPatientData] = useState(null);
     const [generatedCode, setGeneratedCode] = useState('');
     const [error, setError] = useState('');
 
     const handleGenerateCode = async (e) => {
         e.preventDefault();
+        setError('');
         try {
             const res = await fetch('http://localhost:5000/api/emergency/generate', {
                 method: 'POST',
@@ -22,7 +22,7 @@ function EmergencyAccess() {
             const data = await res.json();
             if (data.code) {
                 setGeneratedCode(data.code);
-                setStep(2);
+                setLocalStep(2);
             } else {
                 setError(data.message);
             }
@@ -34,6 +34,7 @@ function EmergencyAccess() {
 
     const handleAccessPatient = async (e) => {
         e.preventDefault();
+        setError('');
         try {
             const res = await fetch('http://localhost:5000/api/emergency/access', {
                 method: 'POST',
@@ -42,7 +43,9 @@ function EmergencyAccess() {
             });
             const data = await res.json();
             if (data.patient) {
-                setPatientData(data.patient);
+                setPatientData(data.patient);       // ✅ Pass patient info to App state
+                setAccessType('emergency');         // ✅ Mark access as emergency
+                setStep(9);                         // ✅ Go to Confirmation screen
             } else {
                 setError(data.message);
             }
@@ -68,7 +71,7 @@ function EmergencyAccess() {
                 </form>
             )}
 
-            {step === 2 && !patientData && (
+            {step === 2 && (
                 <form onSubmit={handleAccessPatient}>
                     <h2>Enter Emergency Code</h2>
                     <p>Generated Code: <strong>{generatedCode}</strong> (provide this to EMT)</p>
@@ -79,29 +82,6 @@ function EmergencyAccess() {
                     <button type="submit">Access Patient Info</button>
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                 </form>
-            )}
-
-            {patientData && (
-                <div className="patient-info">
-                    <h2>Patient Information</h2>
-                    <p><strong>Name:</strong> {patientData.name}</p>
-                    <p><strong>Email:</strong> {patientData.email}</p>
-                    <p><strong>Birthday:</strong> {patientData.dob}</p>
-                    <p><strong>Gender:</strong> {patientData.gender}</p>
-                    <p><strong>Weight:</strong> {patientData.weight} lbs</p>
-                    <p><strong>Height:</strong> {patientData.heightFeet}' {patientData.heightInches}"</p>
-
-                    <h3>Medical Info:</h3>
-                    <p><strong>Symptoms:</strong> {patientData.symptoms}</p>
-                    <p><strong>Known Conditions:</strong> {patientData.conditions}</p>
-                    <p><strong>Allergies:</strong> {patientData.allergies}</p>
-                    <p><strong>Medications:</strong> {patientData.medications && patientData.medications.join(', ')}</p>
-
-                    <h3>Lifestyle Info:</h3>
-                    <p><strong>Smoking:</strong> {patientData.smoking}</p>
-                    <p><strong>Alcohol:</strong> {patientData.alcohol}</p>
-                    <p><strong>Exercise:</strong> {patientData.exercise}</p>
-                </div>
             )}
         </div>
     );
