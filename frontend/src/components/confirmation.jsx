@@ -77,35 +77,40 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
 
     return (
         <div className="confirmation">
-            <h2>Welcome, {editData.name || "N/A"}!</h2>
+            <h2>
+                {accessType === 'emergency'
+                    ? `Vital Information for ${editData.name || "N/A"}`
+                    : `Welcome, ${editData.name || "N/A"}!`}
+            </h2>
+
 
             {isEditing ? (
                 <>
                     <h3>Basic Info</h3>
                     <label>Email:</label>
-                    <input name="email" value={editData.email || ''} disabled />
+                    <input name="email" value={editData.email || ''} disabled/>
 
                     <label>Birthday:</label>
-                    <input name="dob" value={editData.dob || ''} onChange={handleChange} />
+                    <input name="dob" value={editData.dob || ''} onChange={handleChange}/>
 
                     <label>Gender:</label>
-                    <input name="gender" value={editData.gender || ''} onChange={handleChange} />
+                    <input name="gender" value={editData.gender || ''} onChange={handleChange}/>
 
                     <label>Weight (lbs):</label>
-                    <input name="weight" value={editData.weight || ''} onChange={handleChange} />
+                    <input name="weight" value={editData.weight || ''} onChange={handleChange}/>
 
                     <label>Height:</label>
-                    <input name="height" value={editData.height || ''} onChange={handleChange} />
+                    <input name="height" value={editData.height || ''} onChange={handleChange}/>
 
                     <h3>Medical Info</h3>
                     <label>Symptoms:</label>
-                    <input name="symptoms" value={editData.symptoms || ''} onChange={handleChange} />
+                    <input name="symptoms" value={editData.symptoms || ''} onChange={handleChange}/>
 
                     <label>Conditions:</label>
-                    <input name="conditions" value={editData.conditions || ''} onChange={handleChange} />
+                    <input name="conditions" value={editData.conditions || ''} onChange={handleChange}/>
 
                     <label>Allergies:</label>
-                    <input name="allergies" value={editData.allergies || ''} onChange={handleChange} />
+                    <input name="allergies" value={editData.allergies || ''} onChange={handleChange}/>
 
                     <label>Medications:</label>
                     <input
@@ -123,33 +128,37 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
 
                     <h3>Lifestyle Info</h3>
                     <label>Smoking:</label>
-                    <input name="smoking" value={editData.smoking || ''} onChange={handleChange} />
+                    <input name="smoking" value={editData.smoking || ''} onChange={handleChange}/>
 
                     <label>Alcohol:</label>
-                    <input name="alcohol" value={editData.alcohol || ''} onChange={handleChange} />
+                    <input name="alcohol" value={editData.alcohol || ''} onChange={handleChange}/>
 
                     <label>Exercise:</label>
-                    <input name="exercise" value={editData.exercise || ''} onChange={handleChange} />
+                    <input name="exercise" value={editData.exercise || ''} onChange={handleChange}/>
 
                     {accessType !== 'emergency' && (
                         <>
                             <h3>Security Question</h3>
                             <label>Security Question:</label>
-                            <input name="securityQuestion" value={editData.securityQuestion || ''} onChange={handleChange} />
+                            <input name="securityQuestion" value={editData.securityQuestion || ''}
+                                   onChange={handleChange}/>
                             <label>Security Answer:</label>
-                            <input name="securityAnswer" value={editData.securityAnswer || ''} onChange={handleChange} />
+                            <input name="securityAnswer" value={editData.securityAnswer || ''} onChange={handleChange}/>
                         </>
                     )}
 
                     <h3>Emergency Contact</h3>
                     <label>Contact Name:</label>
-                    <input name="emergencyContactName" value={editData.emergencyContactName || ''} onChange={handleChange} />
+                    <input name="emergencyContactName" value={editData.emergencyContactName || ''}
+                           onChange={handleChange}/>
 
                     <label>Relationship:</label>
-                    <input name="emergencyContactRelationship" value={editData.emergencyContactRelationship || ''} onChange={handleChange} />
+                    <input name="emergencyContactRelationship" value={editData.emergencyContactRelationship || ''}
+                           onChange={handleChange}/>
 
                     <label>Phone:</label>
-                    <input name="emergencyContactPhone" value={editData.emergencyContactPhone || ''} onChange={handleChange} />
+                    <input name="emergencyContactPhone" value={editData.emergencyContactPhone || ''}
+                           onChange={handleChange}/>
 
                     <button onClick={handleSubmitClick}>Submit Changes</button>
                 </>
@@ -196,6 +205,23 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     Your information has been updated!
                 </div>
             )}
+            <div style={{marginTop: '2rem', textAlign: 'center'}}>
+                <button
+                    onClick={() => window.location.reload()}
+                    style={{
+                        backgroundColor: '#f44336',
+                        color: 'white',
+                        border: 'none',
+                        padding: '0.75rem 1.5rem',
+                        borderRadius: '8px',
+                        fontSize: '1rem',
+                        cursor: 'pointer',
+                    }}
+                >
+                    Back to Home
+                </button>
+            </div>
+
         </div>
     );
 }

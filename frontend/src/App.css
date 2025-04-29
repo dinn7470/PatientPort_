@@ -19,15 +19,9 @@ header, footer {
   width: 100%;
 }
 
-.logo {
-  height: 40px;  /* Reduce logo size for smaller screens */
-  width: auto;
-}
-
 .app-header {
   display: flex;
-  justify-content: space-between;  /* Ensures space between the title and logo */
-  align-items: center;             /* Vertically centers the content */
+  align-items: center;
   padding: 1rem 2rem;
   background-color: #ffffff;
   border-bottom: 2px solid #4f8ef7;
@@ -39,22 +33,18 @@ header, footer {
 .header-left {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
 }
 
-
-.header-right {
-  display: flex;
-  align-items: center;
+.logo {
+  height: 40px;
+  width: auto;
 }
-
-
 
 .app-header h1 {
   margin: 0;
   font-size: 2.5rem;
   color: #2c3e50;
-  margin-left: 1rem;
-
 }
 
 /* Main content area */
@@ -68,20 +58,17 @@ header, footer {
 }
 
 /* Form/page container */
-  .app-container {
-    width: 100%;
-    max-width: 1200px;
-    /* Remove this — max-height restricts growth */
-    /* max-height: 1200px; */
-
-    min-height: 50vh; /* ✅ Minimum height is 80% of viewport height */
-    background: #F7FAFC;
-    border-radius: 12px;
-    padding: 3rem;
-    margin: 2rem auto;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow-x: hidden;
-  }
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 50vh;
+  background: #F7FAFC;
+  border-radius: 12px;
+  padding: 3rem;
+  margin: 2rem auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
+}
 
 /* Footer */
 .app-footer {
@@ -97,21 +84,14 @@ header, footer {
   z-index: 5;
 }
 
+/* Responsive tweaks */
 @media (max-width: 768px) {
-  .app-header {
-    position: relative;
+  .app-header h1 {
+    font-size: 2rem;
   }
 
   .logo {
-    position: absolute;
-    top: 10px;    /* Adjust vertically */
-    right: 2000px;  /* Adjust horizontally */
-    height: 50px;
-    width: auto;
-  }
-
-  .app-header h1 {
-    font-size: 2rem;
+    height: 32px;
   }
 }
 
