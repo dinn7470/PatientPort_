@@ -50,10 +50,8 @@ function App() {
         <>
             <header className="app-header">
                 <div className="header-left">
+                    <img src="/PatientPortLogo.png" alt="PatientPort Logo" className="logo" />
                     <h1>PatientPort</h1>
-                </div>
-                <div className="header-right">
-                     <img src="/PatientPortLogo.png" alt="PatientPort Logo" className="logo" />
                 </div>
             </header>
 
@@ -128,21 +126,19 @@ function App() {
                             formData={formData}
                             patientData={patientData}
                             setPatientData={setPatientData}
-                            accessType={accessType} // Normal access
+                            accessType={accessType}
                         />
                     )}
 
-                    {/* EmergencyAccess special step */}
                     {step === 9 && (
                         <Confirmation
                             formData={formData}
                             patientData={patientData}
                             setPatientData={setPatientData}
-                            accessType={'emergency'} // Marked as emergency view
+                            accessType={'emergency'}
                         />
                     )}
 
-                    {/* Emergency Access screen (not part of numbered steps) */}
                     {step === 10 && (
                         <EmergencyAccess
                             setPatientData={setPatientData}
