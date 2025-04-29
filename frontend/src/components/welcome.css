@@ -1,46 +1,81 @@
 .welcome-page {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 3rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-  }
-  
-  .welcome-page h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-  }
-  
-  .welcome-page p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 2rem;
-  }
-  
-  /* Container for login/signup buttons */
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 3rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.welcome-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.welcome-page p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+/* Container for login/signup buttons */
+.welcome-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem; /* Increased gap for more spacing between buttons */
+  margin-top: 2rem; /* Added top margin for better positioning */
+}
+
+/* Styles for buttons in the welcome section */
+.welcome-buttons button {
+  padding: 1rem 2rem;  /* Adjusted padding for larger buttons */
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: auto; /* Ensure buttons take up only necessary space */
+}
+
+/* Login / Sign Up button styles */
+.welcome-buttons button:nth-child(1), 
+.welcome-buttons button:nth-child(2) {
+  background-color: #007bff;
+  color: white;
+}
+
+.welcome-buttons button:nth-child(1):hover, 
+.welcome-buttons button:nth-child(2):hover {
+  background-color: #0056b3;
+}
+
+/* Emergency button */
+.emergency-button {
+  margin-top: 2rem;
+  background-color: #f44336;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: auto;
+}
+
+.emergency-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
   .welcome-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
+    flex-direction: column; /* Stack buttons on mobile */
+    gap: 1rem; /* Adjust gap between stacked buttons */
   }
-  
-  /* Emergency button */
-  .emergency-button {
-    margin-top: 2rem;
-    background-color: #f44336;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
+
+  .welcome-buttons button {
+    width: 100%; /* Make buttons take full width on small screens */
   }
-  .emergency-button:hover {
-    background-color: #d32f2f;
-  }
-  
+}
