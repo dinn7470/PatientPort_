@@ -1,4 +1,5 @@
 import React from 'react';
+import './LifestyleInfo.css';
 
 function LifestyleInfo({ formData, setFormData, prevStep, nextStep, setPatientData, setStep }) { // <-- added setStep
 
@@ -26,7 +27,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep, setPatientDa
             if (data.success) {
                 alert('Form submitted successfully!');
                 setPatientData(fullFormData);
-                setStep(7);  // 🛠 Go straight to Confirmation
+                setStep(7);  
             } else {
                 alert('Error submitting form');
             }
@@ -37,7 +38,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep, setPatientDa
     };
 
     return (
-        <form onSubmit={handleSubmit} className="patient-form">
+        <form onSubmit={handleSubmit} className="lifestyle-form">
             <label>Smoking Status:</label>
             <select name="smoking" value={formData.smoking || ''} onChange={handleChange}>
                 <option value="">Select...</option>
@@ -57,7 +58,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep, setPatientDa
             <label>Exercise Frequency:</label>
             <input name="exercise" value={formData.exercise || ''} onChange={handleChange} />
 
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+            <div className="lifestyle-navigation-buttons">
                 <button type="button" onClick={prevStep}>Back</button>
                 <button type="submit">Submit</button>
             </div>

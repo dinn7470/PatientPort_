@@ -1,0 +1,42 @@
+.medical-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  .medical-form label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  
+  .medical-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 1px solid #304360;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9fafb;
+    resize: vertical; /* allow user to resize vertically */
+  }
+  
+  .medical-form textarea:focus {
+    outline: none;
+    border-color: #4f8ef7;
+    box-shadow: 0 0 5px rgba(79, 142, 247, 0.5);
+  }
+  
+  /* Navigation buttons (Back and Next) */
+  .medical-navigation-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+  
