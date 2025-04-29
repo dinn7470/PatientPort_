@@ -1,10 +1,10 @@
 .welcome-page {
   max-width: 600px;
   margin: 2rem auto;
-  padding: 3rem;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: 0;
   text-align: center;
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
@@ -24,12 +24,12 @@
 /* Container for login/signup buttons */
 .welcome-buttons {
   display: flex;
-  justify-content: center;
-  gap: 1.5rem; /* Increased gap for more spacing between buttons */
-  margin-top: 2rem; /* Added top margin for better positioning */
+  justify-content: space-evenly; /* Adjusted from center to space-evenly */
+  margin-top: 2rem;
+  gap: .75 rem; /* This gap controls space between buttons */
 }
 
-/* Styles for buttons in the welcome section */
+/* Button styling */
 .welcome-buttons button {
   padding: 1rem 2rem;  /* Adjusted padding for larger buttons */
   font-size: 1rem;
@@ -37,16 +37,17 @@
   border-radius: 8px;
   cursor: pointer;
   width: auto; /* Ensure buttons take up only necessary space */
+  margin-bottom: 1rem;  /* Added margin-bottom to ensure space below the buttons */
 }
 
 /* Login / Sign Up button styles */
-.welcome-buttons button:nth-child(1), 
+.welcome-buttons button:nth-child(1),
 .welcome-buttons button:nth-child(2) {
   background-color: #007bff;
   color: white;
 }
 
-.welcome-buttons button:nth-child(1):hover, 
+.welcome-buttons button:nth-child(1):hover,
 .welcome-buttons button:nth-child(2):hover {
   background-color: #0056b3;
 }
