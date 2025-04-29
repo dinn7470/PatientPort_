@@ -1,12 +1,12 @@
 // frontend/src/App.jsx
 import { useState } from 'react';
-import Welcome from './components/Welcome.jsx';
-import Login from './components/Login.jsx';
+import Welcome from './components/welcome.jsx';
+import Login from './components/login.jsx';
 import PatientForm from './components/PatientForm.jsx';
-import MedicalInfo from './components/MedicalInfo.jsx';
-import LifestyleInfo from './components/LifestyleInfo.jsx';
-import Confirmation from './components/Confirmation.jsx';
-import EmergencyAccess from './components/EmergencyAccess.jsx';
+import MedicalInfo from './components/medicalinfo.jsx';
+import LifestyleInfo from './components/lifestyleInfo.jsx';
+import Confirmation from './components/confirmation.jsx';
+import EmergencyAccess from './components/emergencyAccess.jsx';
 import './App.css';
 
 function App() {
