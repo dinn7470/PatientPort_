@@ -45,7 +45,7 @@ function App() {
     return (
         <>
             <header className="app-header">
-                <h1>Patient Portal</h1>
+                <h1>PatientPort</h1>
             </header>
 
             <main className="app-main">
