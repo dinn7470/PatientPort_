@@ -1,4 +1,3 @@
-// frontend/src/components/Welcome.jsx
 import React from 'react';
 import './Welcome.css';
 
@@ -13,18 +12,10 @@ function Welcome({ goToLogin, goToSignup, goToEmergency }) {
                 <button onClick={goToSignup}>Sign Up</button>
             </div>
 
-            <div style={{ marginTop: '2rem' }}>
+            <div className="emergency-container">
                 <button
                     onClick={goToEmergency}
-                    style={{
-                        backgroundColor: '#f44336',
-                        color: 'white',
-                        padding: '0.5rem 1rem',
-                        fontSize: '1rem',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer'
-                    }}
+                    className="emergency-button"
                 >
                     🚑 EMT Emergency Access
                 </button>
