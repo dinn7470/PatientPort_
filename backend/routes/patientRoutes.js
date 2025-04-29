@@ -10,46 +10,55 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     try {
         const { password, ...rest } = req.body;
-
-        // ✅ This is REQUIRED
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newPatient = new Patient({
             ...rest,
-            password: hashedPassword, // ✅ save hashed password
+            password: hashedPassword
         });
 
         await newPatient.save();
 
-        res.status(201).json({ success: true, message: 'Patient saved successfully', patient: newPatient });
+        // ✅ Optional: Hide password before sending back
+        const { password: _, ...patientWithoutPassword } = newPatient.toObject();
+        res.status(201).json({ success: true, message: 'Patient saved successfully', patient: patientWithoutPassword });
+
     } catch (error) {
         console.error('Error saving patient:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 });
 
+
 //  Login patient (check email then bcrypt compare password)
 // Login patient with hashed password check
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
         const patient = await Patient.findOne({ email });
+
         if (!patient) {
             return res.json({ success: false, message: 'Invalid email or password' });
         }
 
         const isMatch = await bcrypt.compare(password, patient.password);
+
         if (!isMatch) {
             return res.json({ success: false, message: 'Invalid email or password' });
         }
 
-        res.json({ success: true, patient });
+        // ✅ Optional: Hide password before sending back
+        const { password: _, ...patientWithoutPassword } = patient.toObject();
+        res.json({ success: true, patient: patientWithoutPassword });
+
     } catch (error) {
         console.error('Error logging in patient:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 });
+
 
 //  Update patient by _id (no password rehash unless needed)
 router.put('/', async (req, res) => {
