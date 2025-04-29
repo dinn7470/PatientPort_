@@ -1,0 +1,25 @@
+/* ContactInfo.css */
+
+.contact-info-form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 1px solid #304360;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9fafb;
+}
+
+.contact-info-form input:focus {
+    outline: none;
+    border-color: #4f8ef7;
+    box-shadow: 0 0 5px rgba(79, 142, 247, 0.5);
+}
+
+/* Navigation buttons (Back and Submit) */
+.contact-navigation-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+}

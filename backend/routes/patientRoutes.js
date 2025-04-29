@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     try {
         const newPatient = new Patient(req.body);
         await newPatient.save();
-        res.json({ success: true, message: 'Patient saved successfully' });
+        res.status(201).json({ success: true, message: 'Patient saved successfully', patient: newPatient });
     } catch (error) {
         console.error('Error saving patient:', error);
         res.status(500).json({ success: false, message: error.message });
@@ -21,7 +21,6 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Check if a patient exists with matching email and password
         const patient = await Patient.findOne({ email, password });
 
         if (patient) {
@@ -31,6 +30,50 @@ router.post('/login', async (req, res) => {
         }
     } catch (error) {
         console.error('Error logging in patient:', error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// ✅ Update patient by _id (Fixed and expanded)
+router.put('/', async (req, res) => {
+    try {
+        const { _id } = req.body;
+
+        if (!_id) {
+            return res.status(400).json({ success: false, message: '_id is required to update patient.' });
+        }
+
+        const updates = {
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            dob: req.body.dob,
+            weight: req.body.weight,
+            height: req.body.height,
+            gender: req.body.gender,
+            symptoms: req.body.symptoms,
+            conditions: req.body.conditions,
+            allergies: req.body.allergies,
+            medications: req.body.medications,
+            smoking: req.body.smoking,
+            alcohol: req.body.alcohol,
+            exercise: req.body.exercise,
+            securityQuestion: req.body.securityQuestion,
+            securityAnswer: req.body.securityAnswer,
+            emergencyContactName: req.body.emergencyContactName,
+            emergencyContactRelationship: req.body.emergencyContactRelationship,
+            emergencyContactPhone: req.body.emergencyContactPhone,
+        };
+
+        const updatedPatient = await Patient.findByIdAndUpdate(_id, updates, { new: true });
+
+        if (!updatedPatient) {
+            return res.status(404).json({ success: false, message: 'Patient not found.' });
+        }
+
+        res.json({ success: true, patient: updatedPatient });
+    } catch (error) {
+        console.error('Error updating patient:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 });

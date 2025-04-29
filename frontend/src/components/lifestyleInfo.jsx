@@ -1,54 +1,33 @@
+// frontend/src/components/LifestyleInfo.jsx
 import React from 'react';
 import './LifestyleInfo.css';
 
-function LifestyleInfo({ formData, setFormData, prevStep, nextStep, setPatientData, setStep }) { // <-- added setStep
+function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        const fullFormData = {
-            ...formData,
-            height: `${formData.heightFeet}'${formData.heightInches}"`, // Keep combining height
-        };
-
-        try {
-            const res = await fetch('http://localhost:5000/api/patient', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(fullFormData)
-            });
-            const data = await res.json();
-
-            if (data.success) {
-                alert('Form submitted successfully!');
-                setPatientData(fullFormData);
-                setStep(7);  
-            } else {
-                alert('Error submitting form');
-            }
-        } catch (err) {
-            console.error('Submit error:', err);
-            alert('Something went wrong.');
-        }
+        nextStep(); // ✅ Just move to next step — no database yet
     };
 
     return (
         <form onSubmit={handleSubmit} className="lifestyle-form">
+            <h2>Lifestyle Information</h2>
+
             <label>Smoking Status:</label>
-            <select name="smoking" value={formData.smoking || ''} onChange={handleChange}>
+            <select name="smoking" value={formData.smoking || ''} onChange={handleChange} required>
                 <option value="">Select...</option>
                 <option value="never">Never</option>
-                <option value="former">Former</option>
-                <option value="current">Current</option>
+                <option value="former">Former Smoker</option>
+                <option value="current">Current Smoker</option>
             </select>
 
             <label>Alcohol Consumption:</label>
-            <select name="alcohol" value={formData.alcohol || ''} onChange={handleChange}>
+            <select name="alcohol" value={formData.alcohol || ''} onChange={handleChange} required>
                 <option value="">Select...</option>
                 <option value="none">None</option>
                 <option value="moderate">Moderate</option>
@@ -56,11 +35,16 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep, setPatientDa
             </select>
 
             <label>Exercise Frequency:</label>
-            <input name="exercise" value={formData.exercise || ''} onChange={handleChange} />
+            <input
+                name="exercise"
+                value={formData.exercise || ''}
+                onChange={handleChange}
+                required
+            />
 
             <div className="lifestyle-navigation-buttons">
                 <button type="button" onClick={prevStep}>Back</button>
-                <button type="submit">Submit</button>
+                <button type="submit">Next</button> {/* ✅ Proper type="submit" */}
             </div>
         </form>
     );

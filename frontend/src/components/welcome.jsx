@@ -1,20 +1,20 @@
 import React from 'react';
 import './Welcome.css';
 
-function Welcome({ goToLogin, goToSignup, goToEmergency }) {
+function Welcome({ goToLogin, goToSignup, setStep }) {
     return (
         <div className="welcome-page">
             <h2>Welcome to PatientPort</h2>
-            <p>Please choose an option to continue:</p>
+            <p>Access your healthcare information quickly and securely:</p>
 
             <div className="welcome-buttons">
                 <button onClick={goToLogin}>Log In</button>
                 <button onClick={goToSignup}>Sign Up</button>
             </div>
 
-            <div className="emergency-container">
+            <div className="emergency-access">
                 <button
-                    onClick={goToEmergency}
+                    onClick={() => setStep(6)} // ✅ NOW takes you to EmergencyAccess.jsx
                     className="emergency-button"
                 >
                     🚑 EMT Emergency Access
