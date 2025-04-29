@@ -49,80 +49,73 @@ function App() {
             </header>
 
             <main className="app-main">
-            <div className="app-container">
-            {step === 1 && (
-                <Welcome
-                goToLogin={goToLogin}
-                goToSignup={goToSignup}
-                goToEmergency={goToEmergency}
-                />
-            )}
+                <div className="app-container">
+                    {step === 1 && (
+                        <Welcome
+                            goToLogin={goToLogin}
+                            goToSignup={goToSignup}
+                            goToEmergency={goToEmergency}
+                        />
+                    )}
 
-            {step === 2 && (
-                <Login
-                formData={formData}
-                setFormData={setFormData}
-                setPatientData={setPatientData}
-                setStep={setStep}
-                goBack={goBackToWelcome}
-                />
-            )}
+                    {step === 2 && (
+                        <Login
+                            formData={formData}
+                            setFormData={setFormData}
+                            setPatientData={setPatientData}
+                            setStep={setStep}
+                            goBack={goBackToWelcome}
+                        />
+                    )}
 
-            {step === 3 && (
-                <PatientForm
-                formData={formData}
-                setFormData={setFormData}
-                nextStep={nextStep}
-                prevStep={goBackToWelcome}
-                />
-            )}
+                    {step === 3 && (
+                        <PatientForm
+                            formData={formData}
+                            setFormData={setFormData}
+                            nextStep={nextStep}
+                            prevStep={goBackToWelcome}
+                        />
+                    )}
 
-            {step === 4 && (
-                <MedicalInfo
-                formData={formData}
-                setFormData={setFormData}
-                nextStep={nextStep}
-                prevStep={prevStep}
-                />
-            )}
+                    {step === 4 && (
+                        <MedicalInfo
+                            formData={formData}
+                            setFormData={setFormData}
+                            nextStep={nextStep}
+                            prevStep={prevStep}
+                        />
+                    )}
 
-            {step === 5 && (
-                <LifestyleInfo
-                    formData={formData}
-                    setFormData={setFormData}
-                    prevStep={prevStep}
-                    setPatientData={setPatientData}
-                    setAccessType={setAccessType}
-                    setStep={setStep}
-                />
-            )}
+                    {step === 5 && (
+                        <LifestyleInfo
+                            formData={formData}
+                            setFormData={setFormData}
+                            prevStep={prevStep}
+                            setPatientData={setPatientData}
+                            setAccessType={setAccessType}
+                            setStep={setStep}
+                        />
+                    )}
 
-            {step === 6 && (
-                <EmergencyAccess
-                    setPatientData={setPatientData}
-                    setAccessType={setAccessType}
-                    setStep={setStep}
-                />
-            )}
+                    {step === 6 && (
+                        <EmergencyAccess />
+                    )}
 
-            {step === 7 && (
-                <Confirmation
-                    patientData={patientData}
-                    setPatientData={setPatientData}
-                    accessType={accessType}
-                />
-            )}
-           
-           {/* erro message */}
-            {(step < 1 || step > 7) && (
-            <div style={{ textAlign: 'center', marginTop: '2rem', color: 'red' }}>
-                <h2>Oops! Something went wrong.</h2>
-                <button onClick={goBackToWelcome}>Return to Home</button>
-            </div>
-            )}
+                    {step === 7 && (
+                        <Confirmation
+                            patientData={patientData}
+                            setPatientData={setPatientData}
+                            accessType={accessType}
+                        />
+                    )}
 
-            </div>
-
+                    {(step < 1 || step > 7) && (
+                        <div style={{ textAlign: 'center', marginTop: '2rem', color: 'red' }}>
+                            <h2>Oops! Something went wrong.</h2>
+                            <button onClick={goBackToWelcome}>Return to Home</button>
+                        </div>
+                    )}
+                </div>
             </main>
 
             <footer className="app-footer">

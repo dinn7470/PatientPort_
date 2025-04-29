@@ -1,6 +1,7 @@
+// frontend/src/components/Welcome.jsx
 import React from 'react';
 
-function Welcome({ goToLogin, goToSignup, goToEmergencyAccess }) {
+function Welcome({ goToLogin, goToSignup, goToEmergency }) {
     return (
         <div className="welcome-page">
             <h2>Welcome to PatientPort</h2>
@@ -13,7 +14,7 @@ function Welcome({ goToLogin, goToSignup, goToEmergencyAccess }) {
 
             <div style={{ marginTop: '2rem' }}>
                 <button
-                    onClick={goToEmergencyAccess}
+                    onClick={goToEmergency}
                     style={{ backgroundColor: '#f44336', color: 'white' }}
                 >
                     🚑 EMT Emergency Access
