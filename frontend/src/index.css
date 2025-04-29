@@ -1,62 +1,69 @@
-:root {
+/* Overall Form Container */
+.app-container {
+  max-width: 600px;
+  margin: 2rem auto;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color: #1a1a1a;
-  background-color: #f0f2f5;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
 }
 
-a {
-  font-weight: 500;
-  color: #4f8ef7;
-  text-decoration: none;
-}
-a:hover {
-  color: #3a6fd8;
-  text-decoration: underline;
-}
-
-body {
-  margin: 0;
+/* Form styling with spacing between each field */
+.patient-form {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #f0f2f5;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between form fields */
 }
 
-h1 {
-  font-size: 2.5em;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-  color: #2c3e50;
+/* Individual input fields styling */
+.patient-form input,
+.patient-form select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%; /* Inputs take full width */
 }
 
+/* Label styling */
+.patient-form label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem; /* Space between label and input */
+}
+
+/* Add Flexbox for rows to allow two columns if needed (e.g. Height/Weight) */
+.patient-form .row {
+  display: flex;
+  gap: 1rem; /* Adds gap between columns */
+  justify-content: space-between; /* Ensures space between fields */
+}
+
+/* Add specific styling to inputs in rows (like Height and Weight) */
+.patient-form .row input {
+  flex: 1;
+}
+
+/* Button styling */
 button {
-  border-radius: 8px;
-  border: none;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #4f8ef7;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: #007bff;
   color: white;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.25s ease;
-}
-button:hover {
-  background-color: #3a6fd8;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto rgba(79, 142, 247, 0.4);
 }
 
-/* Remove dark mode media query */
+/* Media Query for smaller screens */
+@media (max-width: 600px) {
+  .app-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .patient-form .row {
+    flex-direction: column; /* Stacks fields on small screens */
+  }
+}

@@ -1,5 +1,6 @@
 // frontend/src/components/EmergencyAccess.jsx
 import React, { useState } from 'react';
+import './EmergencyAccess.css';
 
 function EmergencyAccess() {
     const [step, setStep] = useState(1);
@@ -63,7 +64,7 @@ function EmergencyAccess() {
                     <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} required />
 
                     <button type="submit">Generate Code</button>
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    {error && <p className="error-message">{error}</p>}
                 </form>
             )}
 
@@ -81,7 +82,7 @@ function EmergencyAccess() {
             )}
 
             {patientData && (
-                <div className="patient-info" style={{ marginTop: '2rem' }}>
+                <div className="patient-info">
                     <h2>Patient Information</h2>
                     <p><strong>Name:</strong> {patientData.name}</p>
                     <p><strong>Email:</strong> {patientData.email}</p>

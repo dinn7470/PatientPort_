@@ -1,5 +1,7 @@
 // frontend/src/components/PatientForm.jsx
 import React, { useState } from 'react';
+import './PatientForm.css';
+
 
 function PatientForm({ formData, setFormData, nextStep, prevStep }) {
     const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +34,7 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
             />
 
             <label>Password:</label>
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <div  className="password-container">
                 <input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
@@ -66,7 +68,7 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
             />
 
             <label>Height:</label>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div className="height-container">
                 <select
                     name="heightFeet"
                     value={formData.heightFeet}
@@ -105,7 +107,7 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
                 <option value="other">Other</option>
             </select>
 
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+            <div className="navigation-buttons">
                 <button type="button" onClick={prevStep}>
                     Back
                 </button>

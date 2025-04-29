@@ -1,5 +1,9 @@
+/* Layout Styles */
 
-/* Layout */
+header, footer {
+  width: 100%;
+  
+}
 .app-header {
   width: 100%;
   padding: 1rem 0;
@@ -11,11 +15,10 @@
   z-index: 10;
 }
 
-@media (max-width: 600px) {
-  .app-container {
-    margin: 1rem;
-    padding: 2rem;
-  }
+.app-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: #2c3e50;
 }
 
 .app-main {
@@ -26,22 +29,17 @@
   padding: 2rem 1rem;
 }
 
-.app-header h1 {
-  margin: 0;
-  font-size: 1.75rem;
-  color: #2c3e50;
-}
-
 .app-container {
   max-width: 600px;
+  width: 100%;
   margin: 2rem auto;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  padding:  3rem 3rem;
+  padding: 3rem;
   padding-bottom: 5rem;
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .app-footer {
@@ -49,42 +47,18 @@
   padding: 1rem 0;
   background-color: #f9fafb;
   text-align: center;
+  border-top: 1px solid #e5e7eb;
   font-size: 0.875rem;
   color: #6b7280;
-  border-top: 1px solid #e5e7eb;
   position: sticky;
   bottom: 0;
   z-index: 5;
 }
 
-
-.patient-form label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-.patient-form input,
-.patient-form select,
-.patient-form textarea {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.5rem;
-  border: 1px solid #304360;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #f9fafb;
-}
-
-.patient-form input:focus,
-.patient-form select:focus,
-.patient-form textarea:focus {
-  outline: none;
-  border-color: #4f8ef7;
-  box-shadow: 0 0 5px rgba(79, 142, 247, 0.5);
-}
-
-.patient-form button {
-  margin-top: 1.5rem;
+/* Responsive Design */
+@media (max-width: 600px) {
+  .app-container {
+    margin: 1rem;
+    padding: 2rem;
+  }
 }
