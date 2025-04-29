@@ -13,12 +13,12 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // ✅ Before going to next step, combine height
+        //  Before going to next step, combine height
         const combinedHeight = `${formData.heightFeet || 0}'${formData.heightInches || 0}"`;
 
         setFormData((prev) => ({
             ...prev,
-            height: combinedHeight, // ✅ set final height field
+            height: combinedHeight, //  set final height field
         }));
 
         nextStep();

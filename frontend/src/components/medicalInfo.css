@@ -23,7 +23,7 @@
     border-radius: 8px;
     font-size: 1rem;
     background-color: #f9fafb;
-    resize: vertical; /* allow user to resize vertically */
+    resize: vertical;
   }
   
   .medical-form textarea:focus {

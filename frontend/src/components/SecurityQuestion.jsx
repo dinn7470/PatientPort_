@@ -4,7 +4,7 @@ import './SecurityQuestion.css';
 function SecurityQuestion({ formData, setFormData, nextStep, prevStep }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value })); // ✅ Save immediately into formData
+        setFormData((prev) => ({ ...prev, [name]: value })); // Save immediately into formData
     };
 
     const handleSubmit = (e) => {
