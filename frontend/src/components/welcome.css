@@ -26,7 +26,7 @@
   display: flex;
   justify-content: space-evenly; /* Adjusted from center to space-evenly */
   margin-top: 2rem;
-  gap: 1.5rem; /* This gap controls space between buttons */
+  gap: .75 rem; /* This gap controls space between buttons */
 }
 
 /* Button styling */
