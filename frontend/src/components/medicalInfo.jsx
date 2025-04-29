@@ -1,5 +1,6 @@
 // This is Step 2: MedicalInfo.jsx
 import React from 'react';
+import './MedicalInfo.css';
 
 function MedicalInfo({ formData, setFormData, nextStep, prevStep }) {
     const handleChange = (e) => {
@@ -21,7 +22,7 @@ function MedicalInfo({ formData, setFormData, nextStep, prevStep }) {
             <label>Current Medications:</label>
             <textarea name="medicationsText" value={formData.medicationsText || ''} onChange={handleChange}/>
 
-            <div style={{display: 'flex', gap: '1rem', marginTop: '1rem'}}>
+            <div className="medical-navigation-buttons">
                 <button type="button" onClick={prevStep}>Back</button>
                 <button type="submit">Next</button>
             </div>
