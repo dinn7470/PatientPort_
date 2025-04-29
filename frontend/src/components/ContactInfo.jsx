@@ -23,7 +23,7 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
         }
 
         // 🛠 Log the formData before sending it
-        console.log('✅ FORMDATA BEING SENT TO BACKEND:', formData);
+        console.log(' FORMDATA BEING SENT TO BACKEND:', formData);
 
         try {
             const res = await fetch('http://localhost:5000/api/patient', {
@@ -35,8 +35,8 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
             const data = await res.json();
 
             if (data.success) {
-                setPatientData(data.patient); // ✅ Save real patient
-                nextStep(); // ✅ Go to Confirmation
+                setPatientData(data.patient); // Save real patient
+                nextStep(); //  Go to Confirmation
             } else {
                 alert('Error submitting form');
             }

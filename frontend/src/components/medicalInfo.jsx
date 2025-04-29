@@ -15,7 +15,7 @@ function MedicalInfo({ formData, setFormData, nextStep, prevStep }) {
         setFormData((prev) => ({
             ...prev,
             medicationsText: text,
-            medications: medsArray, // ✅ Also update array version automatically
+            medications: medsArray,
         }));
     };
 
@@ -54,7 +54,7 @@ function MedicalInfo({ formData, setFormData, nextStep, prevStep }) {
 
             <div className="navigation-buttons">
                 <button type="button" onClick={prevStep}>Back</button>
-                <button type="submit">Next</button> {/* ✅ Type=submit so onSubmit runs */}
+                <button type="submit">Next</button>
             </div>
         </form>
     );

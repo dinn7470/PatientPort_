@@ -24,7 +24,7 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
 
             if (data.success) {
                 setPatientData(data.patient);      // Save logged in user
-                setFormData(data.patient);         // ✅ Sync formData with backend data
+                setFormData(data.patient);         // Sync formData with backend data
                 setStep(8);                        // Go to Confirmation page
             } else {
                 alert('Login failed: ' + data.message);

@@ -6,6 +6,7 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
     const [editData, setEditData] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [showSnackbar, setShowSnackbar] = useState(false);
 
     useEffect(() => {
         const loadOrCreatePatient = async () => {
@@ -59,7 +60,8 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                 setPatientData(data.patient);
                 setEditData(data.patient);
                 setIsEditing(false);
-                alert('Information updated successfully!');
+                setShowSnackbar(true); // ✅ Show snackbar on successful update
+                setTimeout(() => setShowSnackbar(false), 3000); // Hide after 3s
             } else {
                 alert('Error updating information.');
             }
@@ -129,13 +131,11 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     <label>Exercise:</label>
                     <input name="exercise" value={editData.exercise || ''} onChange={handleChange} />
 
-                    {/* 🔐 Only show security section if not emergency */}
                     {accessType !== 'emergency' && (
                         <>
                             <h3>Security Question</h3>
                             <label>Security Question:</label>
                             <input name="securityQuestion" value={editData.securityQuestion || ''} onChange={handleChange} />
-
                             <label>Security Answer:</label>
                             <input name="securityAnswer" value={editData.securityAnswer || ''} onChange={handleChange} />
                         </>
@@ -173,7 +173,6 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     <p><strong>Alcohol:</strong> {editData.alcohol || 'N/A'}</p>
                     <p><strong>Exercise:</strong> {editData.exercise || 'N/A'}</p>
 
-                    {/* 🔐 Only show security if NOT emergency */}
                     {accessType !== 'emergency' && (
                         <>
                             <h3>Security Question</h3>
@@ -187,9 +186,15 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     <p><strong>Relationship:</strong> {editData.emergencyContactRelationship || 'N/A'}</p>
                     <p><strong>Phone:</strong> {editData.emergencyContactPhone || 'N/A'}</p>
 
-                    {/* 🛑 Hide Edit for EMTs */}
                     {accessType !== 'emergency' && <button onClick={handleEditClick}>Edit</button>}
                 </>
+            )}
+
+            {/* ✅ Snackbar */}
+            {showSnackbar && (
+                <div className="snackbar">
+                    Your information has been updated!
+                </div>
             )}
         </div>
     );

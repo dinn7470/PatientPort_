@@ -11,7 +11,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        nextStep(); // ✅ Just move to next step — no database yet
+        nextStep(); // Just move to next step — no database yet
     };
 
     return (
@@ -44,7 +44,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
 
             <div className="lifestyle-navigation-buttons">
                 <button type="button" onClick={prevStep}>Back</button>
-                <button type="submit">Next</button> {/* ✅ Proper type="submit" */}
+                <button type="submit">Next</button> {/*  Proper type="submit" */}
             </div>
         </form>
     );

@@ -1,11 +1,25 @@
-/* Layout Styles */
+/* Universal box-sizing for layout control */
+* {
+  box-sizing: border-box;
+}
 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f5f7fa;
+}
+
+/* Header */
 header, footer {
   width: 100%;
-
 }
+
 .app-header {
-  width: 100%;
   padding: 1rem 0;
   background-color: #ffffff;
   text-align: center;
@@ -16,33 +30,38 @@ header, footer {
 }
 
 .app-header h1 {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
   font-size: 2.5rem;
   color: #2c3e50;
 }
 
+/* Main content area */
 .app-main {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 2rem 1rem;
-}
-
-.app-container {
-  max-width: 600px;
   width: 100%;
-  margin: 2rem auto;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  padding: 3rem;
-  padding-bottom: 5rem;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  flex-grow: 1;
 }
 
+/* Form/page container */
+  .app-container {
+    width: 100%;
+    max-width: 1200px;
+    /* Remove this — max-height restricts growth */
+    /* max-height: 1200px; */
+
+    min-height: 50vh; /* ✅ Minimum height is 80% of viewport height */
+    background: #F7FAFC;
+    border-radius: 12px;
+    padding: 3rem;
+    margin: 2rem auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+  }
+
+/* Footer */
 .app-footer {
   width: 100%;
   padding: 1rem 0;
@@ -56,10 +75,14 @@ header, footer {
   z-index: 5;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
+/* Responsive tweaks */
+@media (max-width: 1000px) {
   .app-container {
-    margin: 1rem;
     padding: 2rem;
+    margin: 1rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.75rem;
   }
 }

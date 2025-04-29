@@ -1,4 +1,3 @@
-// frontend/src/components/EmergencyAccess.jsx
 import React, { useState } from 'react';
 import './EmergencyAccess.css';
 
@@ -43,9 +42,9 @@ function EmergencyAccess({ setPatientData, setStep, setAccessType }) {
             });
             const data = await res.json();
             if (data.patient) {
-                setPatientData(data.patient);       // ✅ Pass patient info to App state
-                setAccessType('emergency');         // ✅ Mark access as emergency
-                setStep(9);                         // ✅ Go to Confirmation screen
+                setPatientData(data.patient);
+                setAccessType('emergency');
+                setStep(9); // Go to confirmation
             } else {
                 setError(data.message);
             }
@@ -61,12 +60,16 @@ function EmergencyAccess({ setPatientData, setStep, setAccessType }) {
                 <form onSubmit={handleGenerateCode}>
                     <h2>Generate Emergency Code</h2>
                     <label>Patient Name:</label>
-                    <input value={name} onChange={(e) => setName(e.target.value)} required />
+                    <input value={name} onChange={(e) => setName(e.target.value)} required/>
 
                     <label>Patient Birthday:</label>
-                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} required />
+                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} required/>
 
                     <button type="submit">Generate Code</button>
+                    <button type="button" onClick={() => setStep(1)} style={{marginLeft: '1rem'}}>
+                        ⬅ Back to Welcome
+                    </button>
+
                     {error && <p className="error-message">{error}</p>}
                 </form>
             )}
@@ -74,12 +77,16 @@ function EmergencyAccess({ setPatientData, setStep, setAccessType }) {
             {step === 2 && (
                 <form onSubmit={handleAccessPatient}>
                     <h2>Enter Emergency Code</h2>
-                    <p>Generated Code: <strong>{generatedCode}</strong> (provide this to EMT)</p>
+                    <p>Generated Code: <strong>{generatedCode}</strong></p>
 
                     <label>Emergency Code:</label>
                     <input value={code} onChange={(e) => setCode(e.target.value)} required />
 
                     <button type="submit">Access Patient Info</button>
+                    <button type="button" onClick={() => setStep(1)} style={{ marginLeft: '1rem' }}>
+                        ⬅ Back to Welcome
+                    </button>
+
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                 </form>
             )}
