@@ -1,4 +1,4 @@
-// components/Login.jsx
+// frontend/src/components/Login.jsx
 import React from 'react';
 import './Login.css';
 
@@ -23,8 +23,9 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
             const data = await res.json();
 
             if (data.success) {
-                setPatientData(data.patient); // Save the patient data into state
-                setStep(7); // Go to Confirmation/Profile page
+                setPatientData(data.patient);      // Save logged in user
+                setFormData(data.patient);         // ✅ Sync formData with backend data
+                setStep(8);                        // Go to Confirmation page
             } else {
                 alert('Login failed: ' + data.message);
             }
@@ -63,5 +64,6 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
         </form>
     );
 }
+
 
 export default Login;

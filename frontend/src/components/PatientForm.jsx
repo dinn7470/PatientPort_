@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import './PatientForm.css';
 
-
 function PatientForm({ formData, setFormData, nextStep, prevStep }) {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -11,15 +10,29 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // ✅ Before going to next step, combine height
+        const combinedHeight = `${formData.heightFeet || 0}'${formData.heightInches || 0}"`;
+
+        setFormData((prev) => ({
+            ...prev,
+            height: combinedHeight, // ✅ set final height field
+        }));
+
+        nextStep();
+    };
+
     return (
-        <form onSubmit={(e) => { e.preventDefault(); nextStep(); }} className="patient-form">
+        <form onSubmit={handleSubmit} className="patient-form">
             <h2>Patient Information</h2>
 
             <label>Name:</label>
             <input
                 type="text"
                 name="name"
-                value={formData.name}
+                value={formData.name || ''}
                 onChange={handleChange}
                 required
             />
@@ -28,17 +41,17 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
             <input
                 type="email"
                 name="email"
-                value={formData.email}
+                value={formData.email || ''}
                 onChange={handleChange}
                 required
             />
 
             <label>Password:</label>
-            <div  className="password-container">
+            <div className="password-container">
                 <input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
-                    value={formData.password}
+                    value={formData.password || ''}
                     onChange={handleChange}
                     required
                 />
@@ -56,13 +69,11 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
                 required
             />
 
-
-
             <label>Weight (lbs):</label>
             <input
                 type="number"
                 name="weight"
-                value={formData.weight}
+                value={formData.weight || ''}
                 onChange={handleChange}
                 required
             />
@@ -71,7 +82,7 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
             <div className="height-container">
                 <select
                     name="heightFeet"
-                    value={formData.heightFeet}
+                    value={formData.heightFeet || ''}
                     onChange={handleChange}
                     required
                 >
@@ -83,7 +94,7 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
 
                 <select
                     name="heightInches"
-                    value={formData.heightInches}
+                    value={formData.heightInches || ''}
                     onChange={handleChange}
                     required
                 >
@@ -97,7 +108,7 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
             <label>Gender:</label>
             <select
                 name="gender"
-                value={formData.gender}
+                value={formData.gender || ''}
                 onChange={handleChange}
                 required
             >

@@ -1,12 +1,13 @@
-// frontend/src/App.jsx
 import { useState } from 'react';
-import Welcome from './components/Welcome.jsx';
-import Login from './components/Login.jsx';
-import PatientForm from './components/PatientForm.jsx';
-import MedicalInfo from './components/MedicalInfo.jsx';
-import LifestyleInfo from './components/LifestyleInfo.jsx';
-import Confirmation from './components/Confirmation.jsx';
-import EmergencyAccess from './components/EmergencyAccess.jsx';
+import PatientForm from './components/PatientForm';
+import MedicalInfo from './components/MedicalInfo';
+import LifestyleInfo from './components/LifestyleInfo';
+import SecurityQuestion from './components/SecurityQuestion';
+import ContactInfo from './components/ContactInfo';
+import Confirmation from './components/Confirmation';
+import Login from './components/Login';
+import Welcome from './components/Welcome';
+import EmergencyAccess from './components/EmergencyAccess';
 import './App.css';
 
 function App() {
@@ -23,24 +24,27 @@ function App() {
         heightInches: '',
         gender: '',
         symptoms: '',
-        medications: [],
         conditions: '',
         allergies: '',
+        medications: [],
         medicationsText: '',
         smoking: '',
         alcohol: '',
         exercise: '',
+        securityQuestion: '',
+        securityAnswer: '',
+        emergencyContactName: '',
+        emergencyContactRelationship: '',
+        emergencyContactPhone: '',
     });
 
     const [patientData, setPatientData] = useState(null);
 
-    // Step Navigation
     const nextStep = () => setStep((prev) => prev + 1);
     const prevStep = () => setStep((prev) => prev - 1);
     const goToLogin = () => setStep(2);
     const goToSignup = () => setStep(3);
     const goBackToWelcome = () => setStep(1);
-    const goToEmergency = () => setStep(6);
 
     return (
         <>
@@ -54,7 +58,7 @@ function App() {
                         <Welcome
                             goToLogin={goToLogin}
                             goToSignup={goToSignup}
-                            goToEmergency={goToEmergency}
+                            setStep={setStep} // ✅ EMT button now uses this
                         />
                     )}
 
@@ -90,27 +94,55 @@ function App() {
                         <LifestyleInfo
                             formData={formData}
                             setFormData={setFormData}
+                            nextStep={nextStep}
                             prevStep={prevStep}
+                            setPatientData={setPatientData}
+                            setStep={setStep}
+                        />
+                    )}
+
+                    {step === 6 && (
+                        <EmergencyAccess
                             setPatientData={setPatientData}
                             setAccessType={setAccessType}
                             setStep={setStep}
                         />
                     )}
 
-                    {step === 6 && (
-                        <EmergencyAccess />
-                    )}
 
                     {step === 7 && (
+                        <SecurityQuestion
+                            formData={formData}
+                            setFormData={setFormData}
+                            nextStep={nextStep}
+                            prevStep={prevStep}
+                        />
+                    )}
+
+
+                    {step === 8 && (
                         <Confirmation
+                            formData={formData}
                             patientData={patientData}
                             setPatientData={setPatientData}
                             accessType={accessType}
                         />
                     )}
 
-                    {/* Fallback if step is invalid */}
-                    {(step < 1 || step > 7) && (
+
+                    {step === 9 && (
+                        <Confirmation
+                            formData={formData}
+                            patientData={patientData}
+                            setPatientData={setPatientData}
+                            accessType={accessType} // ✅ Pass this in
+                        />
+                    )}
+
+
+
+
+                    {(step < 1 || step > 9) && (
                         <div style={{ textAlign: 'center', marginTop: '2rem', color: 'red' }}>
                             <h2>Oops! Something went wrong.</h2>
                             <button onClick={goBackToWelcome}>Return to Home</button>
