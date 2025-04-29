@@ -1,42 +1,84 @@
 .medical-form {
     max-width: 500px;
     margin: 2rem auto;
-    padding: 2.5rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
     font-family: 'Helvetica Neue', Arial, sans-serif;
-  }
-  
-  .medical-form label {
+    font-size: 1rem;
+    color: #1a1a1a;
+}
+
+.medical-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.medical-form label {
     display: block;
     margin-top: 1rem;
     font-weight: 600;
     color: #1a1a1a;
-  }
-  
-  .medical-form textarea {
+}
+
+.medical-form textarea {
     width: 100%;
     padding: 0.75rem;
     margin-top: 0.5rem;
-    border: 1px solid #304360;
-    border-radius: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
     font-size: 1rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
     background-color: #f9fafb;
+    color: #333;
     resize: vertical;
-  }
-  
-  .medical-form textarea:focus {
-    outline: none;
+    box-sizing: border-box;
+    min-height: 100px;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+
+.medical-form textarea:focus {
     border-color: #4f8ef7;
-    box-shadow: 0 0 5px rgba(79, 142, 247, 0.5);
-  }
-  
-  /* Navigation buttons (Back and Next) */
-  .medical-navigation-buttons {
+    box-shadow: 0 0 5px rgba(79, 142, 247, 0.4);
+    outline: none;
+}
+
+.medical-navigation-buttons {
     display: flex;
     gap: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     justify-content: center;
-  }
-  
+}
+
+.medical-navigation-buttons button {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.medical-navigation-buttons button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .medical-navigation-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .medical-navigation-buttons button {
+        width: 100%;
+        min-width: unset;
+    }
+}
