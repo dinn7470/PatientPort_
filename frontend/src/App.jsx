@@ -29,7 +29,7 @@ function App() {
         medicationsText: '',
         smoking: '',
         alcohol: '',
-        exercise: ''
+        exercise: '',
     });
 
     const [patientData, setPatientData] = useState(null);
@@ -44,7 +44,6 @@ function App() {
 
     return (
         <>
-        <body>
             <header className="app-header">
                 <h1>Patient Portal</h1>
             </header>
@@ -110,6 +109,7 @@ function App() {
                         />
                     )}
 
+                    {/* Fallback if step is invalid */}
                     {(step < 1 || step > 7) && (
                         <div style={{ textAlign: 'center', marginTop: '2rem', color: 'red' }}>
                             <h2>Oops! Something went wrong.</h2>
@@ -122,7 +122,6 @@ function App() {
             <footer className="app-footer">
                 <p>© 2025 Patient Portal. All rights reserved.</p>
             </footer>
-            </body>
         </>
     );
 }
