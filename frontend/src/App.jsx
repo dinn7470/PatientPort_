@@ -58,7 +58,7 @@ function App() {
                         <Welcome
                             goToLogin={goToLogin}
                             goToSignup={goToSignup}
-                            setStep={setStep} // ✅ EMT button now uses this
+                            setStep={setStep}
                         />
                     )}
 
@@ -96,21 +96,10 @@ function App() {
                             setFormData={setFormData}
                             nextStep={nextStep}
                             prevStep={prevStep}
-                            setPatientData={setPatientData}
-                            setStep={setStep}
                         />
                     )}
 
                     {step === 6 && (
-                        <EmergencyAccess
-                            setPatientData={setPatientData}
-                            setAccessType={setAccessType}
-                            setStep={setStep}
-                        />
-                    )}
-
-
-                    {step === 7 && (
                         <SecurityQuestion
                             formData={formData}
                             setFormData={setFormData}
@@ -119,30 +108,45 @@ function App() {
                         />
                     )}
 
+                    {step === 7 && (
+                        <ContactInfo
+                            formData={formData}
+                            setFormData={setFormData}
+                            setPatientData={setPatientData}
+                            nextStep={() => setStep(8)}
+                            prevStep={prevStep}
+                        />
+                    )}
 
                     {step === 8 && (
                         <Confirmation
                             formData={formData}
                             patientData={patientData}
                             setPatientData={setPatientData}
-                            accessType={accessType}
+                            accessType={accessType} // Normal access
                         />
                     )}
 
-
+                    {/* EmergencyAccess special step */}
                     {step === 9 && (
                         <Confirmation
                             formData={formData}
                             patientData={patientData}
                             setPatientData={setPatientData}
-                            accessType={accessType} // ✅ Pass this in
+                            accessType={'emergency'} // Marked as emergency view
                         />
                     )}
 
+                    {/* Emergency Access screen (not part of numbered steps) */}
+                    {step === 10 && (
+                        <EmergencyAccess
+                            setPatientData={setPatientData}
+                            setAccessType={setAccessType}
+                            setStep={setStep}
+                        />
+                    )}
 
-
-
-                    {(step < 1 || step > 9) && (
+                    {(step < 1 || step > 10) && (
                         <div style={{ textAlign: 'center', marginTop: '2rem', color: 'red' }}>
                             <h2>Oops! Something went wrong.</h2>
                             <button onClick={goBackToWelcome}>Return to Home</button>
