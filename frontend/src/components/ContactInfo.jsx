@@ -11,23 +11,28 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.emergencyContactName || !formData.emergencyContactRelationship || !formData.emergencyContactPhone) {
+        const { emergencyContactName, emergencyContactRelationship, emergencyContactPhone, password } = formData;
+
+        // Validate emergency contact fields
+        if (!emergencyContactName || !emergencyContactRelationship || !emergencyContactPhone) {
             alert('Please fill out all emergency contact fields.');
             return;
         }
 
         const phoneRegex = /^[0-9\-\s()]+$/;
-        if (!phoneRegex.test(formData.emergencyContactPhone)) {
+        if (!phoneRegex.test(emergencyContactPhone)) {
             alert('Please enter a valid phone number format.');
             return;
         }
 
-        // 🛠 Log the formData before sending it
-        console.log(' FORMDATA BEING SENT TO BACKEND:', formData);
+        if (!password) {
+            alert('Password is missing. Please return to the first page to enter a password.');
+            return;
+        }
 
         try {
             const res = await fetch('http://localhost:5000/api/patient', {
-                method: 'POST',
+                method: 'POST', // ✅ Ensures backend hashes password
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
@@ -35,10 +40,10 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
             const data = await res.json();
 
             if (data.success) {
-                setPatientData(data.patient); // Save real patient
-                nextStep(); //  Go to Confirmation
+                setPatientData(data.patient);
+                nextStep(); // ✅ Go to Confirmation page
             } else {
-                alert('Error submitting form');
+                alert('Error submitting form: ' + data.message);
             }
         } catch (err) {
             console.error('Submit error:', err);

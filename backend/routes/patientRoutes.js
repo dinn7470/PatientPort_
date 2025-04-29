@@ -1,14 +1,26 @@
 // backend/routes/patientRoutes.js
 import express from 'express';
 import Patient from '../models/Patient.js';
+import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
-// ✅ Register a new patient
+//  Register a new patient (hash password)
+// backend/routes/patientRoutes.js
 router.post('/', async (req, res) => {
     try {
-        const newPatient = new Patient(req.body);
+        const { password, ...rest } = req.body;
+
+        // ✅ This is REQUIRED
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newPatient = new Patient({
+            ...rest,
+            password: hashedPassword, // ✅ save hashed password
+        });
+
         await newPatient.save();
+
         res.status(201).json({ success: true, message: 'Patient saved successfully', patient: newPatient });
     } catch (error) {
         console.error('Error saving patient:', error);
@@ -16,54 +28,42 @@ router.post('/', async (req, res) => {
     }
 });
 
-// ✅ Login patient (check email + password)
+//  Login patient (check email then bcrypt compare password)
+// Login patient with hashed password check
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const patient = await Patient.findOne({ email, password });
-
-        if (patient) {
-            res.json({ success: true, patient });
-        } else {
-            res.json({ success: false, message: 'Invalid email or password' });
+        const patient = await Patient.findOne({ email });
+        if (!patient) {
+            return res.json({ success: false, message: 'Invalid email or password' });
         }
+
+        const isMatch = await bcrypt.compare(password, patient.password);
+        if (!isMatch) {
+            return res.json({ success: false, message: 'Invalid email or password' });
+        }
+
+        res.json({ success: true, patient });
     } catch (error) {
         console.error('Error logging in patient:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 });
 
-// ✅ Update patient by _id (Fixed and expanded)
+//  Update patient by _id (no password rehash unless needed)
 router.put('/', async (req, res) => {
     try {
-        const { _id } = req.body;
+        const { _id, password, ...updates } = req.body;
 
         if (!_id) {
             return res.status(400).json({ success: false, message: '_id is required to update patient.' });
         }
 
-        const updates = {
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            dob: req.body.dob,
-            weight: req.body.weight,
-            height: req.body.height,
-            gender: req.body.gender,
-            symptoms: req.body.symptoms,
-            conditions: req.body.conditions,
-            allergies: req.body.allergies,
-            medications: req.body.medications,
-            smoking: req.body.smoking,
-            alcohol: req.body.alcohol,
-            exercise: req.body.exercise,
-            securityQuestion: req.body.securityQuestion,
-            securityAnswer: req.body.securityAnswer,
-            emergencyContactName: req.body.emergencyContactName,
-            emergencyContactRelationship: req.body.emergencyContactRelationship,
-            emergencyContactPhone: req.body.emergencyContactPhone,
-        };
+        if (password) {
+            // If password is updated, re-hash it
+            updates.password = await bcrypt.hash(password, 10);
+        }
 
         const updatedPatient = await Patient.findByIdAndUpdate(_id, updates, { new: true });
 
