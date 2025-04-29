@@ -22,17 +22,20 @@ header, footer {
 .app-header {
   padding: 1rem 0;
   background-color: #ffffff;
-  text-align: center;
+  text-align: left;
   border-bottom: 2px solid #4f8ef7;
   position: sticky;
   top: 0;
   z-index: 10;
+
 }
 
 .app-header h1 {
   margin: 0;
   font-size: 2.5rem;
   color: #2c3e50;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 /* Main content area */
