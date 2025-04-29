@@ -49,8 +49,12 @@ function App() {
     return (
         <>
             <header className="app-header">
-                <h1>PatientPort</h1>
-            
+                <div className="header-left">
+                    <h1>PatientPort</h1>
+                </div>
+                <div className="header-right">
+                     <img src="/PatientPortLogo.png" alt="PatientPort Logo" className="logo" />
+                </div>
             </header>
 
             <main className="app-main">
