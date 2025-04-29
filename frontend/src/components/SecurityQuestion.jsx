@@ -4,10 +4,6 @@ import './SecurityQuestion.css';
 function SecurityQuestion({ formData, setFormData, nextStep, prevStep }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
-<<<<<<< Updated upstream
-        setFormData((prev) => ({ ...prev, [name]: value })); // Save immediately into formData
-=======
->>>>>>> Stashed changes
         setFormData((prev) => ({ ...prev, [name]: value })); //  Save immediately into formData
     };
 
