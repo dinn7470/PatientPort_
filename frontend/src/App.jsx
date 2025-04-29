@@ -50,6 +50,7 @@ function App() {
         <>
             <header className="app-header">
                 <h1>PatientPort</h1>
+            
             </header>
 
             <main className="app-main">
