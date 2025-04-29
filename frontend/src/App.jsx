@@ -6,7 +6,7 @@ import SecurityQuestion from './components/SecurityQuestion';
 import ContactInfo from './components/ContactInfo';
 import Confirmation from './components/Confirmation';
 import Login from './components/Login';
-import Welcome from './components/Welcome';
+import Welcome from './components/welcome';
 import EmergencyAccess from './components/EmergencyAccess';
 import './App.css';
 
@@ -49,7 +49,7 @@ function App() {
     return (
         <>
             <header className="app-header">
-                <h1>Patient Portal</h1>
+                <h1>PatientPort</h1>
             </header>
 
             <main className="app-main">
@@ -156,7 +156,7 @@ function App() {
             </main>
 
             <footer className="app-footer">
-                <p>© 2025 Patient Portal. All rights reserved.</p>
+                <p>© 2025 PatientPort. All rights reserved.</p>
             </footer>
         </>
     );
