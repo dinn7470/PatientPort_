@@ -1,38 +1,32 @@
-// backend/routes/patientRoutes.js
 import express from 'express';
 import Patient from '../models/Patient.js';
 import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
-//  Register a new patient (hash password)
-// backend/routes/patientRoutes.js
+// ✅ Register a new patient
 router.post('/', async (req, res) => {
     try {
         const { password, ...rest } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newPatient = new Patient({
-            ...rest,
-            password: hashedPassword
-        });
+        const existing = await Patient.findOne({ email: rest.email });
+        if (existing) {
+            return res.status(400).json({ success: false, message: 'Email already in use' });
+        }
+
+        // ✅ Hash password ONCE here only
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newPatient = new Patient({ ...rest, password: hashedPassword });
 
         await newPatient.save();
-
-        // ✅ Optional: Hide password before sending back
-        const { password: _, ...patientWithoutPassword } = newPatient.toObject();
-        res.status(201).json({ success: true, message: 'Patient saved successfully', patient: patientWithoutPassword });
-
+        res.status(201).json({ success: true, message: 'Patient registered', patient: newPatient });
     } catch (error) {
-        console.error('Error saving patient:', error);
-        res.status(500).json({ success: false, message: error.message });
+        console.error('Registration error:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 
-
-//  Login patient (check email then bcrypt compare password)
-// Login patient with hashed password check
-
+// ✅ Log in a patient
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -40,50 +34,24 @@ router.post('/login', async (req, res) => {
         const patient = await Patient.findOne({ email });
 
         if (!patient) {
-            return res.json({ success: false, message: 'Invalid email or password' });
+            return res.status(404).json({ success: false, message: 'No user found with that email' });
         }
+
+        // ✅ DEBUG: Log raw password + hashed password for testing
+        console.log('Plain password:', password);
+        console.log('Hashed password in DB:', patient.password);
 
         const isMatch = await bcrypt.compare(password, patient.password);
+        console.log('Password match result:', isMatch);
 
         if (!isMatch) {
-            return res.json({ success: false, message: 'Invalid email or password' });
+            return res.status(401).json({ success: false, message: 'Incorrect password' });
         }
 
-        // ✅ Optional: Hide password before sending back
-        const { password: _, ...patientWithoutPassword } = patient.toObject();
-        res.json({ success: true, patient: patientWithoutPassword });
-
+        res.json({ success: true, patient });
     } catch (error) {
-        console.error('Error logging in patient:', error);
-        res.status(500).json({ success: false, message: error.message });
-    }
-});
-
-
-//  Update patient by _id (no password rehash unless needed)
-router.put('/', async (req, res) => {
-    try {
-        const { _id, password, ...updates } = req.body;
-
-        if (!_id) {
-            return res.status(400).json({ success: false, message: '_id is required to update patient.' });
-        }
-
-        if (password) {
-            // If password is updated, re-hash it
-            updates.password = await bcrypt.hash(password, 10);
-        }
-
-        const updatedPatient = await Patient.findByIdAndUpdate(_id, updates, { new: true });
-
-        if (!updatedPatient) {
-            return res.status(404).json({ success: false, message: 'Patient not found.' });
-        }
-
-        res.json({ success: true, patient: updatedPatient });
-    } catch (error) {
-        console.error('Error updating patient:', error);
-        res.status(500).json({ success: false, message: error.message });
+        console.error('Login error:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 
