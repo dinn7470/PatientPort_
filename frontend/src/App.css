@@ -60,6 +60,9 @@ header, footer {
 /* Form/page container */
 .app-container {
   width: 100%;
+  position: absolute;
+  top: 175px;
+  left: 375px;
   max-width: 1200px;
   min-height: 50vh;
   background: #F7FAFC;
