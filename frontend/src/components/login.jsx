@@ -1,8 +1,9 @@
-// frontend/src/components/Login.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 
 function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
+    const [error, setError] = useState('');
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -23,15 +24,20 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
             const data = await res.json();
 
             if (data.success) {
-                setPatientData(data.patient);      // Save logged in user
-                setFormData(data.patient);         // Sync formData with backend data
-                setStep(8);                        // Go to Confirmation page
+                // ✅ Save patient to state (but not yet final)
+                setPatientData(data.patient);
+                setFormData((prev) => ({
+                    ...prev,
+                    securityQuestion: data.patient.securityQuestion,
+                    correctSecurityAnswer: data.patient.securityAnswer // not shown, only for comparison
+                }));
+                setStep(3); // ➡ Go to security question screen
             } else {
-                alert('Login failed: ' + data.message);
+                setError('Login failed: ' + data.message);
             }
         } catch (err) {
             console.error('Login error:', err);
-            alert('Something went wrong.');
+            setError('Something went wrong.');
         }
     };
 
@@ -57,13 +63,14 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
                 required
             />
 
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+
             <div className="login-buttons">
                 <button type="button" onClick={goBack}>Back</button>
-                <button type="submit">Log In</button>
+                <button type="submit">Next</button>
             </div>
         </form>
     );
 }
-
 
 export default Login;

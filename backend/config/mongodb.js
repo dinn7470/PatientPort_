@@ -10,9 +10,9 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        console.log('✅ MongoDB connected');
+        console.log('MongoDB connected');
     } catch (error) {
-        console.error(' DB connection failed:', error);
+        console.error('DB connection failed:', error);
         process.exit(1); // Crash the server if DB connection fails
     }
 };
