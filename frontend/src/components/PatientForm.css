@@ -1,6 +1,4 @@
-/* ------------------------------
-   Layout: Navigation Buttons
------------------------------- */
+
 .navigation-buttons {
   display: flex;
   justify-content: center;
@@ -39,9 +37,6 @@
   }
 }
 
-/* ------------------------------
-   Form Layout: General Inputs
------------------------------- */
 .patient-form input,
 .patient-form select {
   width: 100%;
@@ -52,9 +47,7 @@
   margin-bottom: 1rem;
 }
 
-/* ------------------------------
-   Password Input with Toggle
------------------------------- */
+
 .password-container {
   display: flex;
   align-items: center;
@@ -80,9 +73,7 @@
   background-color: #5a6268;
 }
 
-/* ------------------------------
-   Height Inputs: Feet & Inches
------------------------------- */
+
 .height-container {
   display: flex;
   gap: 1rem;
