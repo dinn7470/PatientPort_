@@ -14,7 +14,6 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Email already in use' });
         }
 
-        // ✅ Hash password ONCE here only
         const hashedPassword = await bcrypt.hash(password, 10);
         const newPatient = new Patient({ ...rest, password: hashedPassword });
 
@@ -37,13 +36,7 @@ router.post('/login', async (req, res) => {
             return res.status(404).json({ success: false, message: 'No user found with that email' });
         }
 
-        // ✅ DEBUG: Log raw password + hashed password for testing
-        console.log('Plain password:', password);
-        console.log('Hashed password in DB:', patient.password);
-
         const isMatch = await bcrypt.compare(password, patient.password);
-        console.log('Password match result:', isMatch);
-
         if (!isMatch) {
             return res.status(401).json({ success: false, message: 'Incorrect password' });
         }
@@ -52,6 +45,28 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// ✅ Update patient info (used by Confirmation.jsx)
+router.put('/', async (req, res) => {
+    const { email, ...updates } = req.body;
+
+    try {
+        const patient = await Patient.findOneAndUpdate(
+            { email },
+            updates,
+            { new: true }
+        );
+
+        if (!patient) {
+            return res.status(404).json({ success: false, message: 'Patient not found' });
+        }
+
+        res.json({ success: true, patient });
+    } catch (err) {
+        console.error('Update error:', err);
+        res.status(500).json({ success: false, message: 'Server error during update' });
     }
 });
 
