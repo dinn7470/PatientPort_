@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './EmergencyAccess.css';
 
-function EmergencyAccess({ setPatientData, setStep, setAccessType }) {
-    const [step, setLocalStep] = useState(1); // Local step just for this form
+function EmergencyAccess({ setPatientData, setAccessType, setStep }) {
+    const [localStep, setLocalStep] = useState(1);
     const [name, setName] = useState('');
     const [dob, setDob] = useState('');
     const [code, setCode] = useState('');
@@ -16,17 +16,16 @@ function EmergencyAccess({ setPatientData, setStep, setAccessType }) {
             const res = await fetch('http://localhost:5000/api/emergency/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, dob })
+                body: JSON.stringify({ name, dob }),
             });
             const data = await res.json();
-            if (data.code) {
+            if (res.ok) {
                 setGeneratedCode(data.code);
-                setLocalStep(2);
+                setLocalStep(2); // ✅ this was the conflicting variable
             } else {
                 setError(data.message);
             }
-        } catch (error) {
-            console.error('Error generating code:', error);
+        } catch (err) {
             setError('Something went wrong.');
         }
     };
@@ -38,58 +37,58 @@ function EmergencyAccess({ setPatientData, setStep, setAccessType }) {
             const res = await fetch('http://localhost:5000/api/emergency/access', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code })
+                body: JSON.stringify({ code }),
             });
             const data = await res.json();
-            if (data.patient) {
+            if (res.ok) {
                 setPatientData(data.patient);
                 setAccessType('emergency');
-                setStep(9); // Go to confirmation
+                setStep(8); // Go to confirmation page
             } else {
                 setError(data.message);
             }
-        } catch (error) {
-            console.error('Error accessing patient:', error);
-            setError('Something went wrong.');
+        } catch (err) {
+            setError('Failed to retrieve patient.');
         }
     };
 
     return (
         <div className="emergency-access">
-            {step === 1 && (
+            {localStep === 1 && (
                 <form onSubmit={handleGenerateCode}>
                     <h2>Generate Emergency Code</h2>
-                    <label>Patient Name:</label>
-                    <input value={name} onChange={(e) => setName(e.target.value)} required/>
-
-                    <label>Patient Birthday:</label>
-                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} required/>
-
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Name"
+                        required
+                    />
+                    <input
+                        type="date"
+                        value={dob}
+                        onChange={(e) => setDob(e.target.value)}
+                        required
+                    />
                     <button type="submit">Generate Code</button>
-                    <button type="button" onClick={() => setStep(1)} style={{marginLeft: '1rem'}}>
-                        ⬅ Back to Welcome
-                    </button>
-
-                    {error && <p className="error-message">{error}</p>}
                 </form>
             )}
 
-            {step === 2 && (
+            {localStep === 2 && (
                 <form onSubmit={handleAccessPatient}>
-                    <h2>Enter Emergency Code</h2>
-                    <p>Generated Code: <strong>{generatedCode}</strong></p>
-
-                    <label>Emergency Code:</label>
-                    <input value={code} onChange={(e) => setCode(e.target.value)} required />
-
+                    <h2>Enter Code</h2>
+                    <p>Code: <strong>{generatedCode}</strong></p>
+                    <input
+                        type="text"
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                        required
+                    />
                     <button type="submit">Access Patient Info</button>
-                    <button type="button" onClick={() => setStep(1)} style={{ marginLeft: '1rem' }}>
-                        ⬅ Back to Welcome
-                    </button>
-
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
                 </form>
             )}
+
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     );
 }
