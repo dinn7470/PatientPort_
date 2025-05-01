@@ -24,16 +24,15 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
             const data = await res.json();
 
             if (data.success) {
-                // ✅ Save patient to state (but not yet final)
                 setPatientData(data.patient);
                 setFormData((prev) => ({
                     ...prev,
-                    securityQuestion: data.patient.securityQuestion,
-                    correctSecurityAnswer: data.patient.securityAnswer // not shown, only for comparison
+                    ...data.patient,
+                    correctSecurityAnswer: data.patient.securityAnswer
                 }));
-                setStep(3); // ➡ Go to security question screen
+                setStep(9); // Go to security check
             } else {
-                setError('Login failed: ' + data.message);
+                setError(data.message);
             }
         } catch (err) {
             console.error('Login error:', err);
@@ -67,7 +66,7 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
 
             <div className="login-buttons">
                 <button type="button" onClick={goBack}>Back</button>
-                <button type="submit">Next</button>
+                <button type="submit">Log In</button>
             </div>
         </form>
     );

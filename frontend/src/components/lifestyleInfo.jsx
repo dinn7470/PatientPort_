@@ -1,9 +1,7 @@
-// frontend/src/components/LifestyleInfo.jsx
 import React from 'react';
 import './LifestyleInfo.css';
 
 function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -11,7 +9,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        nextStep(); // Just move to next step — no database yet
+        nextStep();
     };
 
     return (
@@ -44,7 +42,7 @@ function LifestyleInfo({ formData, setFormData, prevStep, nextStep }) {
 
             <div className="lifestyle-navigation-buttons">
                 <button type="button" onClick={prevStep}>Back</button>
-                <button type="submit">Next</button> {/*  Proper type="submit" */}
+                <button type="submit">Next</button>
             </div>
         </form>
     );

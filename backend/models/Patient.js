@@ -23,12 +23,37 @@ const patientSchema = new mongoose.Schema({
     emergencyContactPhone: { type: String },
 });
 
-//
+// ✅ Hash password before saving
+patientSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
+
+
+// Search for patient by name (exact match)
+router.get('/search', async (req, res) => {
+    const { name } = req.query;
+    try {
+        const patient = await Patient.findOne({ name });
+        if (!patient) return res.status(404).json({ error: 'Patient not found' });
+        res.json(patient);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+
 
 
 
 
 
 const Patient = mongoose.model('Patient', patientSchema);
-
 export default Patient;
