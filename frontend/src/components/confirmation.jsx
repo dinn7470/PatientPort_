@@ -3,47 +3,18 @@ import './Confirmation.css';
 
 function Confirmation({ formData, patientData, setPatientData, accessType }) {
     const [editData, setEditData] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [showSnackbar, setShowSnackbar] = useState(false);
 
     useEffect(() => {
-        const loadOrCreatePatient = async () => {
-            if (!patientData) {
-                try {
-                    setIsSubmitting(true);
-                    const res = await fetch('http://localhost:5000/api/patient', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData),
-                    });
-                    const data = await res.json();
-                    if (data.success) {
-                        setPatientData(data.patient);
-                        setEditData(data.patient);
-                    } else {
-                        console.error('Error creating patient:', data.message);
-                    }
-                } catch (err) {
-                    console.error('Error creating patient:', err);
-                } finally {
-                    setIsSubmitting(false);
-                }
-            } else {
-                setEditData(patientData);
-            }
-        };
-
-        loadOrCreatePatient();
-    }, [formData, patientData, setPatientData]);
+        if (patientData) {
+            setEditData(patientData);
+        }
+    }, [patientData]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleEditClick = () => {
-        setIsEditing(true);
     };
 
     const handleSubmitClick = async (e) => {
@@ -54,6 +25,7 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(editData),
             });
+
             const data = await res.json();
             if (data.success) {
                 setPatientData(data.patient);
@@ -70,9 +42,7 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
         }
     };
 
-    if (isSubmitting || !editData) {
-        return <div>Loading your information...</div>;
-    }
+    if (!editData) return <div>Loading your information...</div>;
 
     return (
         <div className="confirmation">
@@ -189,7 +159,9 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     <p><strong>Relationship:</strong> {editData.emergencyContactRelationship || 'N/A'}</p>
                     <p><strong>Phone:</strong> {editData.emergencyContactPhone || 'N/A'}</p>
 
-                    {accessType !== 'emergency' && <button onClick={handleEditClick}>Edit</button>}
+                    {accessType !== 'emergency' && (
+                        <button onClick={() => setIsEditing(true)}>Edit</button>
+                    )}
                 </>
             )}
 
