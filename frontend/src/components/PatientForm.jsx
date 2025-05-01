@@ -1,4 +1,3 @@
-// frontend/src/components/PatientForm.jsx
 import React, { useState } from 'react';
 import './PatientForm.css';
 
@@ -13,12 +12,11 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        //  Before going to next step, combine height
         const combinedHeight = `${formData.heightFeet || 0}'${formData.heightInches || 0}"`;
 
         setFormData((prev) => ({
             ...prev,
-            height: combinedHeight, //  set final height field
+            height: combinedHeight,
         }));
 
         nextStep();
@@ -119,12 +117,8 @@ function PatientForm({ formData, setFormData, nextStep, prevStep }) {
             </select>
 
             <div className="navigation-buttons">
-                <button type="button" onClick={prevStep}>
-                    Back
-                </button>
-                <button type="submit">
-                    Next
-                </button>
+                <button type="button" onClick={prevStep}>Back</button>
+                <button type="submit">Next</button>
             </div>
         </form>
     );

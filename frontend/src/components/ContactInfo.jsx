@@ -1,4 +1,3 @@
-// frontend/src/components/ContactInfo.jsx
 import React from 'react';
 import './ContactInfo.css';
 
@@ -13,7 +12,6 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
 
         const { emergencyContactName, emergencyContactRelationship, emergencyContactPhone, password } = formData;
 
-        // Validate emergency contact fields
         if (!emergencyContactName || !emergencyContactRelationship || !emergencyContactPhone) {
             alert('Please fill out all emergency contact fields.');
             return;
@@ -32,16 +30,15 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
 
         try {
             const res = await fetch('http://localhost:5000/api/patient', {
-                method: 'POST', // ✅ Ensures backend hashes password
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
 
             const data = await res.json();
-
             if (data.success) {
                 setPatientData(data.patient);
-                nextStep(); // ✅ Go to Confirmation page
+                nextStep(); // Go to Confirmation page
             } else {
                 alert('Error submitting form: ' + data.message);
             }

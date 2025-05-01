@@ -7,17 +7,16 @@ const router = express.Router();
 // ✅ Register a new patient
 router.post('/', async (req, res) => {
     try {
-        const { password, ...rest } = req.body;
+        const { email } = req.body;
 
-        const existing = await Patient.findOne({ email: rest.email });
+        const existing = await Patient.findOne({ email });
         if (existing) {
             return res.status(400).json({ success: false, message: 'Email already in use' });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newPatient = new Patient({ ...rest, password: hashedPassword });
-
+        const newPatient = new Patient(req.body); // password will be hashed in schema
         await newPatient.save();
+
         res.status(201).json({ success: true, message: 'Patient registered', patient: newPatient });
     } catch (error) {
         console.error('Registration error:', error);
@@ -31,7 +30,6 @@ router.post('/login', async (req, res) => {
 
     try {
         const patient = await Patient.findOne({ email });
-
         if (!patient) {
             return res.status(404).json({ success: false, message: 'No user found with that email' });
         }
@@ -48,7 +46,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// ✅ Update patient info (used by Confirmation.jsx)
+// ✅ Update patient info
 router.put('/', async (req, res) => {
     const { email, ...updates } = req.body;
 

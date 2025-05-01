@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import './SecurityQuestion.css';
 
 function SecurityCheckLogin({ formData, setFormData, nextStep }) {
-    const [answer, setAnswer] = useState('');
     const [error, setError] = useState('');
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const correctAnswer = formData.correctSecurityAnswer?.toLowerCase().trim();
-        const userAnswer = answer.toLowerCase().trim();
-
-        if (userAnswer === correctAnswer) {
-            nextStep();
+        if (formData.securityAnswer?.trim().toLowerCase() === formData.correctSecurityAnswer?.trim().toLowerCase()) {
+            nextStep(); // → Step 8: Confirmation page
         } else {
             setError('Incorrect security answer.');
         }
@@ -19,19 +20,20 @@ function SecurityCheckLogin({ formData, setFormData, nextStep }) {
 
     return (
         <form className="security-question-form" onSubmit={handleSubmit}>
-            <h2>Security Verification</h2>
+            <h2>Security Check</h2>
 
-            <label>{formData.securityQuestion || 'No question found.'}</label>
+            <label>{formData.securityQuestion || 'Security Question'}:</label>
             <input
                 type="text"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
+                name="securityAnswer"
+                value={formData.securityAnswer || ''}
+                onChange={handleChange}
                 required
             />
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
-            <div className="security-navigation-buttons" style={{ justifyContent: 'center' }}>
+            <div className="security-navigation-buttons">
                 <button type="submit">Log In</button>
             </div>
         </form>

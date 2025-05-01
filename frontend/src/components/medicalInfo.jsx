@@ -1,4 +1,3 @@
-// frontend/src/components/MedicalInfo.jsx
 import React from 'react';
 import './MedicalInfo.css';
 
@@ -27,6 +26,14 @@ function MedicalInfo({ formData, setFormData, nextStep, prevStep }) {
     return (
         <form onSubmit={handleSubmit} className="patient-form">
             <h2>Medical Information</h2>
+
+            <label>Symptoms:</label>
+            <textarea
+                name="symptoms"
+                value={formData.symptoms || ''}
+                onChange={handleChange}
+                required
+            />
 
             <label>Existing Conditions:</label>
             <textarea

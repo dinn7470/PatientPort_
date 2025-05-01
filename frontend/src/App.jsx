@@ -3,17 +3,25 @@ import PatientForm from './components/PatientForm';
 import MedicalInfo from './components/MedicalInfo';
 import LifestyleInfo from './components/LifestyleInfo';
 import SecurityQuestion from './components/SecurityQuestion';
-import SecurityCheckLogin from './components/SecurityCheckLogin'; // 👈 new import
+import SecurityCheckLogin from './components/SecurityCheckLogin';
 import ContactInfo from './components/ContactInfo';
 import Confirmation from './components/Confirmation';
 import Login from './components/Login';
 import Welcome from './components/Welcome';
 import EmergencyAccess from './components/EmergencyAccess';
+import DoctorDashboard from './components/DoctorDashboard';
+import DoctorLogin from './components/DoctorLogin';
+import SignupRoleChoice from './components/SignupRoleChoice';
+import DoctorForm1 from './components/DoctorForm1';
+import DoctorForm2 from './components/DoctorForm2';
+import DoctorConfirmation from './components/DoctorConfirmation';
 import './App.css';
 
 function App() {
     const [step, setStep] = useState(1);
     const [accessType, setAccessType] = useState('patient');
+    const [patientData, setPatientData] = useState(null);
+    const [doctorId, setDoctorId] = useState(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -23,6 +31,7 @@ function App() {
         weight: '',
         heightFeet: '',
         heightInches: '',
+        height: '',
         gender: '',
         symptoms: '',
         conditions: '',
@@ -34,18 +43,20 @@ function App() {
         exercise: '',
         securityQuestion: '',
         securityAnswer: '',
-        correctSecurityAnswer: '',
         emergencyContactName: '',
         emergencyContactRelationship: '',
         emergencyContactPhone: '',
+        specialization: '',
+        clinicName: '',
+        clinicAddress: '',
+        _id: ''
     });
-
-    const [patientData, setPatientData] = useState(null);
 
     const nextStep = () => setStep((prev) => prev + 1);
     const prevStep = () => setStep((prev) => prev - 1);
     const goToLogin = () => setStep(2);
-    const goToSignup = () => setStep(4);
+    const goToSignup = () => setStep(11);
+    const goToDoctorLogin = () => setStep(99);
     const goBackToWelcome = () => setStep(1);
 
     return (
@@ -60,7 +71,12 @@ function App() {
             <main className="app-main">
                 <div className="app-container">
                     {step === 1 && (
-                        <Welcome goToLogin={goToLogin} goToSignup={goToSignup} setStep={setStep} />
+                        <Welcome
+                            goToLogin={goToLogin}
+                            goToSignup={goToSignup}
+                            goToDoctorLogin={goToDoctorLogin}
+                            setStep={setStep}
+                        />
                     )}
 
                     {step === 2 && (
@@ -73,16 +89,12 @@ function App() {
                         />
                     )}
 
-                    {step === 3 && (
-                        <SecurityCheckLogin
-                            formData={formData}
-                            setFormData={setFormData}
-                            nextStep={() => setStep(9)} // 👈 go directly to confirmation
-                        />
+                    {step === 11 && (
+                        <SignupRoleChoice setStep={setStep} />
                     )}
 
-                    {/* Sign-up Flow */}
-                    {step === 4 && (
+                    {/* Patient Flow */}
+                    {step === 3 && (
                         <PatientForm
                             formData={formData}
                             setFormData={setFormData}
@@ -91,7 +103,7 @@ function App() {
                         />
                     )}
 
-                    {step === 5 && (
+                    {step === 4 && (
                         <MedicalInfo
                             formData={formData}
                             setFormData={setFormData}
@@ -100,7 +112,7 @@ function App() {
                         />
                     )}
 
-                    {step === 6 && (
+                    {step === 5 && (
                         <LifestyleInfo
                             formData={formData}
                             setFormData={setFormData}
@@ -109,7 +121,7 @@ function App() {
                         />
                     )}
 
-                    {step === 7 && (
+                    {step === 6 && (
                         <SecurityQuestion
                             formData={formData}
                             setFormData={setFormData}
@@ -118,17 +130,17 @@ function App() {
                         />
                     )}
 
-                    {step === 8 && (
+                    {step === 7 && (
                         <ContactInfo
                             formData={formData}
                             setFormData={setFormData}
                             setPatientData={setPatientData}
-                            nextStep={() => setStep(9)}
+                            nextStep={() => setStep(8)}
                             prevStep={prevStep}
                         />
                     )}
 
-                    {step === 9 && (
+                    {step === 8 && (
                         <Confirmation
                             formData={formData}
                             patientData={patientData}
@@ -137,16 +149,37 @@ function App() {
                         />
                     )}
 
-                    {step === 10 && (
-                        <Confirmation
+                    {/* Doctor Flow */}
+                    {step === 20 && (
+                        <DoctorForm1
                             formData={formData}
-                            patientData={patientData}
-                            setPatientData={setPatientData}
-                            accessType={'emergency'}
+                            setFormData={setFormData}
+                            setStep={setStep}
                         />
                     )}
 
-                    {step === 11 && (
+                    {step === 21 && (
+                        <DoctorForm2
+                            formData={formData}
+                            setFormData={setFormData}
+                            setStep={setStep}
+                        />
+                    )}
+
+                    {step === 23 && (
+                        <DoctorConfirmation formData={formData} />
+                    )}
+
+                    {/* Shared Features */}
+                    {step === 9 && (
+                        <SecurityCheckLogin
+                            formData={formData}
+                            setFormData={setFormData}
+                            nextStep={() => setStep(8)}
+                        />
+                    )}
+
+                    {step === 10 && (
                         <EmergencyAccess
                             setPatientData={setPatientData}
                             setAccessType={setAccessType}
@@ -154,7 +187,15 @@ function App() {
                         />
                     )}
 
-                    {(step < 1 || step > 11) && (
+                    {step === 99 && (
+                        <DoctorLogin setStep={setStep} setDoctorId={setDoctorId} />
+                    )}
+
+                    {step === 100 && (
+                        <DoctorDashboard doctorId={doctorId} />
+                    )}
+
+                    {(step < 1 || (step > 10 && ![11, 20, 21, 23, 99, 100].includes(step))) && (
                         <div style={{ textAlign: 'center', marginTop: '2rem', color: 'red' }}>
                             <h2>Oops! Something went wrong.</h2>
                             <button onClick={goBackToWelcome}>Return to Home</button>
