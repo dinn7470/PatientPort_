@@ -1,27 +1,47 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import Doctor from '../models/Doctor.js';
+import Patient from '../models/Patient.js';
 
 const router = express.Router();
 
-// Sign up doctor
+//  Doctor Signup
 router.post('/signup', async (req, res) => {
     try {
-        const { name, email, password, specialization, clinicName, clinicAddress, doctorId } = req.body;
+        const {
+            name,
+            email,
+            password,
+            specialization,
+            clinicName,
+            clinicAddress,
+            medicalLicense
+        } = req.body;
+
         const existing = await Doctor.findOne({ email });
         if (existing) return res.status(400).json({ error: 'Email already in use' });
 
         const hashed = await bcrypt.hash(password, 10);
-        const newDoctor = new Doctor({ name, email, password: hashed, specialization, clinicName, clinicAddress, doctorId });
-        await newDoctor.save();
 
+        const newDoctor = new Doctor({
+            name,
+            email,
+            password: hashed,
+            specialization,
+            clinicName,
+            clinicAddress,
+            medicalLicense
+        });
+
+        await newDoctor.save();
         res.status(201).json({ message: 'Doctor created', doctor: newDoctor });
     } catch (err) {
+        console.error(' Signup failed:', err.message);
         res.status(500).json({ error: err.message });
     }
 });
 
-// Login step 1: verify email + password
+//  Login Step 1: Email & Password
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const doctor = await Doctor.findOne({ email });
@@ -33,13 +53,46 @@ router.post('/login', async (req, res) => {
     res.json({ tempDoctorId: doctor._id });
 });
 
-// Login step 2: verify doctorId
-router.post('/verify-id', async (req, res) => {
-    const { doctorId, tempDoctorId } = req.body;
+// Login Step 2: Verify Medical License
+router.post('/verify-license', async (req, res) => {
+    const { medicalLicense, tempDoctorId } = req.body;
     const doctor = await Doctor.findById(tempDoctorId);
-    if (!doctor || doctor.doctorId !== doctorId) return res.status(403).json({ error: 'Invalid Doctor ID' });
 
-    res.json({ doctorId: doctor._id, name: doctor.name });
+    if (!doctor || doctor.medicalLicense !== Number(medicalLicense)) {
+        return res.status(403).json({ error: 'Invalid medical license number' });
+    }
+
+    res.json({ doctorId: doctor._id });
+});
+
+//  Add a patient to a doctor
+router.post('/:doctorId/add-patient', async (req, res) => {
+    const { patientId } = req.body;
+    try {
+        const doctor = await Doctor.findById(req.params.doctorId);
+        if (!doctor) return res.status(404).json({ error: 'Doctor not found' });
+
+        if (!doctor.patients.includes(patientId)) {
+            doctor.patients.push(patientId);
+            await doctor.save();
+        }
+
+        res.status(200).json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+//  Get all patients linked to a doctor
+router.get('/:doctorId/patients', async (req, res) => {
+    try {
+        const doctor = await Doctor.findById(req.params.doctorId).populate('patients');
+        if (!doctor) return res.status(404).json({ error: 'Doctor not found' });
+
+        res.json(doctor.patients);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 export default router;

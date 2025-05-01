@@ -21,7 +21,7 @@ function DoctorLogin({ setStep, setTempDoctorId }) {
 
             // ✅ store tempDoctorId for ID prompt
             setTempDoctorId(data.tempDoctorId);
-            setStep(25); // Go to Doctor ID verification prompt
+            setStep(26);
 
         } catch (err) {
             setError(err.message || 'Login failed.');

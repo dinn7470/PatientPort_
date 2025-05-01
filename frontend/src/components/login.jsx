@@ -42,7 +42,7 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
 
     return (
         <form onSubmit={handleLogin} className="login-form">
-            <h2>Log In</h2>
+            <h2>Patient Log In</h2>
 
             <label>Email:</label>
             <input

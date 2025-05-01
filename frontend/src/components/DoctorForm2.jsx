@@ -11,7 +11,7 @@ function DoctorForm2({ formData, setFormData, setStep }) {
             return;
         }
         setError('');
-        setStep(23);
+        setStep(24);
     };
 
     return (
