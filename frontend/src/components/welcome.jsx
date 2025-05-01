@@ -7,7 +7,7 @@ function Welcome({ goToLogin, goToSignup, goToDoctorLogin, setStep }) {
             <h2>Welcome to PatientPort</h2>
             <p>Please choose an option to continue:</p>
             <div className="welcome-buttons">
-                <button onClick={goToLogin}>Log In</button>
+                <button onClick={goToLogin}>Patient Access</button>
                 <button onClick={goToSignup}>Sign Up</button>
                 <button onClick={goToDoctorLogin} style={{ backgroundColor: '#4CAF50', color: 'white' }}>
                     Doctor Access

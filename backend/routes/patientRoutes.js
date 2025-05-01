@@ -4,17 +4,16 @@ import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
-// ✅ Register a new patient
+//  Register a new patient
 router.post('/', async (req, res) => {
     try {
         const { email } = req.body;
-
         const existing = await Patient.findOne({ email });
         if (existing) {
             return res.status(400).json({ success: false, message: 'Email already in use' });
         }
 
-        const newPatient = new Patient(req.body); // password will be hashed in schema
+        const newPatient = new Patient(req.body); // password gets hashed in model
         await newPatient.save();
 
         res.status(201).json({ success: true, message: 'Patient registered', patient: newPatient });
@@ -24,7 +23,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// ✅ Log in a patient
+//  Log in a patient
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -46,17 +45,12 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// ✅ Update patient info
+//  Update patient info
 router.put('/', async (req, res) => {
     const { email, ...updates } = req.body;
 
     try {
-        const patient = await Patient.findOneAndUpdate(
-            { email },
-            updates,
-            { new: true }
-        );
-
+        const patient = await Patient.findOneAndUpdate({ email }, updates, { new: true });
         if (!patient) {
             return res.status(404).json({ success: false, message: 'Patient not found' });
         }
@@ -65,6 +59,21 @@ router.put('/', async (req, res) => {
     } catch (err) {
         console.error('Update error:', err);
         res.status(500).json({ success: false, message: 'Server error during update' });
+    }
+});
+
+//  Search patients by name (used by doctor dashboard)
+router.get('/search', async (req, res) => {
+    const { name } = req.query;
+    if (!name) return res.status(400).json({ error: 'Missing name parameter' });
+
+    try {
+        const results = await Patient.find({
+            name: { $regex: new RegExp(name, 'i') }
+        }).select('name email _id');
+        res.json(results);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 

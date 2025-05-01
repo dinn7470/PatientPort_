@@ -15,6 +15,9 @@ import SignupRoleChoice from './components/SignupRoleChoice';
 import DoctorForm1 from './components/DoctorForm1';
 import DoctorForm2 from './components/DoctorForm2';
 import DoctorConfirmation from './components/DoctorConfirmation';
+import DoctorLicenseForm from './components/DoctorLicenseForm';
+import DoctorLicensePrompt from './components/DoctorLicensePrompt';
+import ReadOnlyConfirmation from './components/ReadOnlyConfirmation';
 import './App.css';
 
 function App() {
@@ -22,6 +25,8 @@ function App() {
     const [accessType, setAccessType] = useState('patient');
     const [patientData, setPatientData] = useState(null);
     const [doctorId, setDoctorId] = useState(null);
+    const [tempDoctorId, setTempDoctorId] = useState(null);
+    const [selectedPatient, setSelectedPatient] = useState(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -49,6 +54,7 @@ function App() {
         specialization: '',
         clinicName: '',
         clinicAddress: '',
+        medicalLicense: '',
         _id: ''
     });
 
@@ -89,114 +95,64 @@ function App() {
                         />
                     )}
 
-                    {step === 11 && (
-                        <SignupRoleChoice setStep={setStep} />
-                    )}
+                    {step === 11 && <SignupRoleChoice setStep={setStep} />}
 
-                    {/* Patient Flow */}
                     {step === 3 && (
-                        <PatientForm
-                            formData={formData}
-                            setFormData={setFormData}
-                            nextStep={nextStep}
-                            prevStep={goBackToWelcome}
-                        />
+                        <PatientForm formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={goBackToWelcome} />
                     )}
-
                     {step === 4 && (
-                        <MedicalInfo
-                            formData={formData}
-                            setFormData={setFormData}
-                            nextStep={nextStep}
-                            prevStep={prevStep}
-                        />
+                        <MedicalInfo formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />
                     )}
-
                     {step === 5 && (
-                        <LifestyleInfo
-                            formData={formData}
-                            setFormData={setFormData}
-                            nextStep={nextStep}
-                            prevStep={prevStep}
-                        />
+                        <LifestyleInfo formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />
                     )}
-
                     {step === 6 && (
-                        <SecurityQuestion
-                            formData={formData}
-                            setFormData={setFormData}
-                            nextStep={nextStep}
-                            prevStep={prevStep}
-                        />
+                        <SecurityQuestion formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />
                     )}
-
                     {step === 7 && (
-                        <ContactInfo
-                            formData={formData}
-                            setFormData={setFormData}
-                            setPatientData={setPatientData}
-                            nextStep={() => setStep(8)}
-                            prevStep={prevStep}
-                        />
+                        <ContactInfo formData={formData} setFormData={setFormData} setPatientData={setPatientData} nextStep={() => setStep(8)} prevStep={prevStep} />
                     )}
-
                     {step === 8 && (
-                        <Confirmation
-                            formData={formData}
-                            patientData={patientData}
-                            setPatientData={setPatientData}
-                            accessType={accessType}
-                        />
+                        <Confirmation formData={formData} patientData={patientData} setPatientData={setPatientData} accessType={accessType} />
                     )}
 
-                    {/* Doctor Flow */}
                     {step === 20 && (
-                        <DoctorForm1
-                            formData={formData}
-                            setFormData={setFormData}
-                            setStep={setStep}
-                        />
+                        <DoctorForm1 formData={formData} setFormData={setFormData} setStep={setStep} />
                     )}
-
                     {step === 21 && (
-                        <DoctorForm2
+                        <DoctorForm2 formData={formData} setFormData={setFormData} setStep={setStep} />
+                    )}
+                    {step === 24 && (
+                        <DoctorLicenseForm
                             formData={formData}
                             setFormData={setFormData}
                             setStep={setStep}
+                            setDoctorId={setDoctorId} // ✅ ADDED
                         />
                     )}
+                    {step === 23 && <DoctorConfirmation formData={formData} />}
 
-                    {step === 23 && (
-                        <DoctorConfirmation formData={formData} />
-                    )}
-
-                    {/* Shared Features */}
                     {step === 9 && (
-                        <SecurityCheckLogin
-                            formData={formData}
-                            setFormData={setFormData}
-                            nextStep={() => setStep(8)}
-                        />
+                        <SecurityCheckLogin formData={formData} setFormData={setFormData} nextStep={() => setStep(8)} />
                     )}
-
                     {step === 10 && (
-                        <EmergencyAccess
-                            setPatientData={setPatientData}
-                            setAccessType={setAccessType}
-                            setStep={setStep}
-                        />
+                        <EmergencyAccess setPatientData={setPatientData} setAccessType={setAccessType} setStep={setStep} />
                     )}
-
                     {step === 99 && (
-                        <DoctorLogin setStep={setStep} setDoctorId={setDoctorId} />
+                        <DoctorLogin setStep={setStep} setTempDoctorId={setTempDoctorId} />
+                    )}
+                    {step === 26 && (
+                        <DoctorLicensePrompt tempDoctorId={tempDoctorId} setDoctorId={setDoctorId} setStep={setStep} />
+                    )}
+                    {step === 12 && (
+                        <DoctorDashboard doctorId={doctorId} setStep={setStep} setSelectedPatient={setSelectedPatient} />
+                    )}
+                    {step === 13 && (
+                        <ReadOnlyConfirmation patient={selectedPatient} goBack={() => setStep(12)} />
                     )}
 
-                    {step === 100 && (
-                        <DoctorDashboard doctorId={doctorId} />
-                    )}
-
-                    {(step < 1 || (step > 10 && ![11, 20, 21, 23, 99, 100].includes(step))) && (
-                        <div style={{ textAlign: 'center', marginTop: '2rem', color: 'red' }}>
+                    {(step < 1 || (step > 13 && ![12, 13, 20, 21, 23, 24, 26, 99].includes(step))) && (
+                        <div>
                             <h2>Oops! Something went wrong.</h2>
                             <button onClick={goBackToWelcome}>Return to Home</button>
                         </div>

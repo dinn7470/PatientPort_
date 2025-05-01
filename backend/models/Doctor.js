@@ -7,7 +7,7 @@ const DoctorSchema = new mongoose.Schema({
     specialization: String,
     clinicName: String,
     clinicAddress: String,
-    doctorId: { type: String, required: true, unique: true },
+    medicalLicense: { type: Number, required: true, unique: true }, // ✅ Comma added here
     patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }]
 });
 
