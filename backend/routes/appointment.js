@@ -4,7 +4,7 @@ import Appointment from '../models/Appointment.js';
 
 const router = express.Router();
 
-//  1. Create new appointment (used by patient)
+
 router.post('/create', async (req, res) => {
     try {
         const { doctorId, patientId, date } = req.body;
@@ -23,7 +23,7 @@ router.post('/create', async (req, res) => {
     }
 });
 
-// 2. Get all appointments for a specific patient
+
 router.get('/patient/:id', async (req, res) => {
     try {
         const appointments = await Appointment.find({ patientId: req.params.id })
@@ -69,7 +69,7 @@ router.put('/:id/status', async (req, res) => {
 });
 
 
-import Doctor from '../models/Doctor.js'; // or correct path if different
+import Doctor from '../models/Doctor.js';
 
 
 router.get('/search-doctors', async (req, res) => {

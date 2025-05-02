@@ -195,7 +195,7 @@ function Confirmation({ formData, patientData, setPatientData, accessType, setSt
                                     fontSize: '1rem',
                                     cursor: 'pointer',
                                 }}>
-                                My Appointments
+                                My Doctors
                             </button>
                         </div>
                     )}

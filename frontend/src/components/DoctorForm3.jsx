@@ -20,16 +20,6 @@ function DoctorForm3({ formData, setFormData, setStep }) {
 
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-<<<<<<< HEAD
-            setStep(100);
-=======
-            setStep(100); // Go to dashboard or login next
->>>>>>> 6b79ab0f185ab2b4a4d125bbb1f79149bafc10ba
-        } catch (err) {
-            setError(err.message);
-        }
-    };
-
     return (
         <div className="form-page">
             <h2>Doctor Sign Up</h2>

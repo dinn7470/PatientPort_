@@ -41,7 +41,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// Login Step 1: Email & Password
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const doctor = await Doctor.findOne({ email });
@@ -66,7 +66,7 @@ router.post('/verify-license', async (req, res) => {
 });
 
 
-// Add a patient to a doctor
+
 router.post('/:doctorId/add-patient', async (req, res) => {
     const { patientId } = req.body;
     try {
@@ -83,7 +83,6 @@ router.post('/:doctorId/add-patient', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-
 // Get all patients linked to a doctor
 router.get('/:doctorId/patients', async (req, res) => {
     try {
@@ -96,7 +95,7 @@ router.get('/:doctorId/patients', async (req, res) => {
     }
 });
 
-// Get all doctors (optional utility route)
+
 router.get('/all', async (req, res) => {
     try {
         const doctors = await Doctor.find().select('name specialization clinicName');
@@ -107,7 +106,6 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// Remove a patient from a doctor's list
 router.delete('/:doctorId/remove-patient/:patientId', async (req, res) => {
     const { doctorId, patientId } = req.params;
 

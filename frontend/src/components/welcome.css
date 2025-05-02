@@ -71,7 +71,7 @@
   background-color: #d32f2f;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 600px) {
   .welcome-buttons {
     flex-direction: column; 

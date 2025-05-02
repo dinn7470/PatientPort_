@@ -1,5 +1,4 @@
-/* Universal box-sizing for layout control */
-* {
+{
   box-sizing: border-box;
 }
 
@@ -14,7 +13,7 @@ html, body, #root {
   background-color: #f5f7fa;
 }
 
-/* Header */
+
 header, footer {
   width: 100%;
 }
@@ -47,7 +46,7 @@ header, footer {
   color: #2c3e50;
 }
 
-/* Main content area */
+
 .app-main {
   flex: 1;
   display: flex;
@@ -57,7 +56,7 @@ header, footer {
   width: 100%;
 }
 
-/* Form/page container */
+
 .app-container {
   width: 100%;
   position: absolute;
@@ -73,7 +72,7 @@ header, footer {
   overflow-x: hidden;
 }
 
-/* Footer */
+
 .app-footer {
   width: 100%;
   padding: 1rem 0;
@@ -87,7 +86,7 @@ header, footer {
   z-index: 5;
 }
 
-/* Responsive tweaks */
+
 @media (max-width: 768px) {
   .app-header h1 {
     font-size: 2rem;

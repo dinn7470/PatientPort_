@@ -21,7 +21,7 @@ router.get('/search-doctors', async (req, res) => {
     }
 });
 
-// Register a new patient
+
 router.post('/', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Login
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -58,7 +58,6 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Update
 router.put('/', async (req, res) => {
     const { email, ...updates } = req.body;
     try {
