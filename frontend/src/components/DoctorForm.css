@@ -179,3 +179,55 @@ form {
     opacity: 0.9;
 }
 
+/* Table buttons like "View" */
+.form-page table button {
+    padding: 0.6rem 1.2rem;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.form-page table button:hover {
+    background-color: #0056b3;
+}
+
+/* Optional: Style the table layout itself for better UI */
+.form-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.form-page th, .form-page td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.form-page th {
+    background-color: #f0f4f8;
+    color: #333;
+    font-weight: 600;
+}
+.back-to-dashboard {
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.back-to-dashboard:hover {
+    background-color: #5a6268;
+}
+
+

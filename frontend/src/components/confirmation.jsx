@@ -184,6 +184,30 @@ function Confirmation({ formData, patientData, setPatientData, accessType, setSt
                     <p><strong>Relationship:</strong> {editData.emergencyContactRelationship || 'N/A'}</p>
                     <p><strong>Phone:</strong> {editData.emergencyContactPhone || 'N/A'}</p>
 
+
+
+                    {accessType === 'patient' && (
+                        <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+                            <button
+                                onClick={() => setIsEditing(true)}
+                                style={{
+                                    backgroundColor: '#4CAF50',
+                                    color: 'white',
+                                    border: 'none',
+                                    padding: '0.75rem 1.5rem',
+                                    borderRadius: '8px',
+                                    fontSize: '1rem',
+                                    cursor: 'pointer',
+                                    marginRight: '1rem'
+                                }}
+                            >
+                                Edit
+                            </button>
+                        </div>
+                    )}
+
+
+
                     {accessType === 'patient' && (
                         <div style={{marginTop: '2rem', textAlign: 'center'}}>
                             <button  onClick={() => setStep(14)}

@@ -19,7 +19,7 @@ function ReadOnlyConfirmation({ patient, goBack }) {
                     <p><strong>Alcohol:</strong> {patient.alcohol || 'N/A'}</p>
                     <p><strong>Exercise:</strong> {patient.exercise || 'N/A'}</p>
 
-                    <button onClick={goBack}>Back to Dashboard</button>
+                    <button className="back-to-dashboard" onClick={goBack}>Back to Dashboard</button>
             </div>
         );
 }

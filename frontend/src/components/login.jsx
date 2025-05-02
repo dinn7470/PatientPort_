@@ -76,7 +76,7 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
 
             <div className="login-buttons">
                 <button type="button" onClick={goBack}>Back</button>
-                <button type="submit">Log In</button>
+                <button type="submit">Continue</button>
             </div>
         </form>
     );
