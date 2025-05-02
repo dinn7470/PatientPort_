@@ -22,7 +22,7 @@ const patientSchema = new mongoose.Schema({
     emergencyContactPhone: String,
     securityQuestion: String,
     securityAnswer: String,
-    doctors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }] //
+    doctors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }]
 });
 
 // Hash password before save

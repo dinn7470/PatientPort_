@@ -5,7 +5,7 @@ import Patient from '../models/Patient.js';
 
 const router = express.Router();
 
-// Doctor Signup
+
 router.post('/signup', async (req, res) => {
     try {
         const {

@@ -35,7 +35,7 @@ router.get('/patient/:id', async (req, res) => {
     }
 });
 
-// 3. Get all appointments for a specific doctor
+
 router.get('/doctor/:id', async (req, res) => {
     try {
         const appointments = await Appointment.find({ doctorId: req.params.id })
@@ -47,7 +47,7 @@ router.get('/doctor/:id', async (req, res) => {
     }
 });
 
-//  Update appointment status (used by doctor)
+
 router.put('/:id/status', async (req, res) => {
     try {
         const { status } = req.body;
@@ -71,7 +71,7 @@ router.put('/:id/status', async (req, res) => {
 
 import Doctor from '../models/Doctor.js'; // or correct path if different
 
-// Route: GET /api/appointment/search-doctors?name=Dr%20John
+
 router.get('/search-doctors', async (req, res) => {
     const nameQuery = req.query.name;
     try {
