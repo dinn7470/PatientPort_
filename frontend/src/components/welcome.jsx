@@ -9,14 +9,12 @@ function Welcome({ goToLogin, goToSignup, goToDoctorLogin, setStep }) {
             <div className="welcome-buttons">
                 <button onClick={goToLogin}>Patient Access</button>
                 <button onClick={goToSignup}>Sign Up</button>
-                <button onClick={goToDoctorLogin} style={{ backgroundColor: '#4CAF50', color: 'white' }}>
-                    Doctor Access
-                </button>
+                <button onClick={goToDoctorLogin} className="doctor-button">Doctor Access</button>
             </div>
-            <div style={{ marginTop: '1rem' }}>
+            <div style={{marginTop: '1rem'}}>
                 <button
                     onClick={() => setStep(10)}
-                    style={{ backgroundColor: '#f44336', color: 'white' }}
+                    className="emergency-button"
                 >
                     🚑 EMT Emergency Access
                 </button>

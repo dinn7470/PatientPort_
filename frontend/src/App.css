@@ -12,6 +12,14 @@ html, body, #root {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background-color: #f5f7fa;
 }
+.doctor-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.doctor-button:hover {
+  background-color: #388e3c;
+}
 
 
 header, footer {
