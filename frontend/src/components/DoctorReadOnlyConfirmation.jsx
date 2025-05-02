@@ -1,5 +1,5 @@
 import React from 'react';
-import './Confirmation.css'; // Reuse existing styles if available
+import './Confirmation.css';
 
 function DoctorReadOnlyConfirmation({ selectedDoctor, setStep }) {
     if (!selectedDoctor) {
@@ -42,7 +42,7 @@ function DoctorReadOnlyConfirmation({ selectedDoctor, setStep }) {
                 <p>{medicalLicense}</p>
             </div>
 
-            <button className="back-btn" onClick={() => setStep(25)}>Back to My Doctors</button>
+            <button className="back-to-doctors" onClick={() => setStep(14)}>Back to My Doctors</button>
         </div>
     );
 }
