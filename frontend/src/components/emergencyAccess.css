@@ -1,92 +1,93 @@
 .emergency-access {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2.5rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-  }
-  
-  .emergency-access form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .emergency-access h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-    text-align: center;
-  }
-  
-  .emergency-access label {
-    margin-top: 1rem;
-    font-weight: 600;
-    color: #1a1a1a;
-  }
-  
-  .emergency-access input {
-    padding: 0.75rem;
-    margin-top: 0.5rem;
-    border: 1px solid #304360;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: #f9fafb;
-  }
-  
-  .emergency-access input:focus {
-    outline: none;
-    border-color: #4f8ef7;
-    box-shadow: 0 0 5px rgba(79, 142, 247, 0.5);
-  }
-  
-  .emergency-access button {
-    margin-top: 1.5rem;
-    padding: 0.75rem 1.25rem;
-    background-color: #4f8ef7;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .emergency-access button:hover {
-    background-color: #3a6fd8;
-  }
-  
-  .error-message {
-    margin-top: 1rem;
-    color: red;
-    text-align: center;
-  }
-  
-  /* Patient Info Display */
-  .patient-info {
-    margin-top: 2rem;
-    padding: 2rem;
-    background-color: #f9fafb;
-    border-radius: 8px;
-  }
-  
-  .patient-info h2, .patient-info h3 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-  }
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.emergency-access form {
+  display: flex;
+  flex-direction: column;
+}
+
+.emergency-access h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.emergency-access label {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.emergency-access input {
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid #304360;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+}
+
+.emergency-access input:focus {
+  outline: none;
+  border-color: #4f8ef7;
+  box-shadow: 0 0 5px rgba(79, 142, 247, 0.5);
+}
+
+.emergency-access button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: #4f8ef7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.emergency-access button:hover {
+  background-color: #3a6fd8;
+}
+
+.error-message {
+  margin-top: 1rem;
+  color: red;
+  text-align: center;
+}
+
+.patient-info {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+}
+
+.patient-info h2,
+.patient-info h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
 
 .emergency-access button.back-button {
-  background-color: #f0f0f0;   /* Light gray background for the back button */
-  color: #333;                 /* Dark gray text color */
-  border: 1px solid #ccc;       /* Thin light gray border */
-  padding: 0.4rem 0.8rem;       /* Small padding inside the button */
-  font-size: 0.9rem;            /* Make the text a little smaller than default */
-  border-radius: 6px;           /* Rounded corners */
-  cursor: pointer;              /* Make cursor a pointer on hover */
-  margin-top: 1rem;             /* Add some space above the button */
-  transition: background-color 0.2s ease-in-out; /* Smooth hover color transition */
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .emergency-access button.back-button:hover {
-  background-color: #e0e0e0;   /* Slightly darker on hover */
+  background-color: #e0e0e0;
 }
+
