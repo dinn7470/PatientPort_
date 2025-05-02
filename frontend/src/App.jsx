@@ -29,7 +29,7 @@ function App() {
     const [doctorId, setDoctorId] = useState(null);
     const [tempDoctorId, setTempDoctorId] = useState(null);
     const [selectedPatient, setSelectedPatient] = useState(null);
-    const [selectedDoctor, setSelectedDoctor] = useState(null); //
+    const [selectedDoctor, setSelectedDoctor] = useState(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -100,21 +100,11 @@ function App() {
 
                     {step === 11 && <SignupRoleChoice setStep={setStep} />}
 
-                    {step === 3 && (
-                        <PatientForm formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={goBackToWelcome} />
-                    )}
-                    {step === 4 && (
-                        <MedicalInfo formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />
-                    )}
-                    {step === 5 && (
-                        <LifestyleInfo formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />
-                    )}
-                    {step === 6 && (
-                        <SecurityQuestion formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />
-                    )}
-                    {step === 7 && (
-                        <ContactInfo formData={formData} setFormData={setFormData} setPatientData={setPatientData} nextStep={() => setStep(8)} prevStep={prevStep} />
-                    )}
+                    {step === 3 && <PatientForm formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={goBackToWelcome} />}
+                    {step === 4 && <MedicalInfo formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />}
+                    {step === 5 && <LifestyleInfo formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />}
+                    {step === 6 && <SecurityQuestion formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />}
+                    {step === 7 && <ContactInfo formData={formData} setFormData={setFormData} setPatientData={setPatientData} nextStep={() => setStep(8)} prevStep={prevStep} />}
                     {step === 8 && (
                         <Confirmation
                             formData={formData}
@@ -128,7 +118,7 @@ function App() {
                         <MyDoctors
                             patientId={patientData?._id}
                             setStep={setStep}
-                            setSelectedDoctor={setSelectedDoctor} // ✅ PASS IT IN
+                            setSelectedDoctor={setSelectedDoctor}
                         />
                     )}
                     {step === 20 && <DoctorForm1 formData={formData} setFormData={setFormData} setStep={setStep} />}
