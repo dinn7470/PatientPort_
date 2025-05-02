@@ -18,7 +18,9 @@ import DoctorConfirmation from './components/DoctorConfirmation';
 import DoctorLicenseForm from './components/DoctorLicenseForm';
 import DoctorLicensePrompt from './components/DoctorLicensePrompt';
 import ReadOnlyConfirmation from './components/ReadOnlyConfirmation';
+import MyDoctors from './components/MyDoctors.jsx';
 import './App.css';
+import DoctorReadOnlyConfirmation from "./components/DoctorReadOnlyConfirmation.jsx";
 
 function App() {
     const [step, setStep] = useState(1);
@@ -113,9 +115,18 @@ function App() {
                         <ContactInfo formData={formData} setFormData={setFormData} setPatientData={setPatientData} nextStep={() => setStep(8)} prevStep={prevStep} />
                     )}
                     {step === 8 && (
-                        <Confirmation formData={formData} patientData={patientData} setPatientData={setPatientData} accessType={accessType} />
+                        <Confirmation
+                            formData={formData}
+                            patientData={patientData}
+                            setPatientData={setPatientData}  accessType={accessType}  setStep={setStep}
+                        />
                     )}
-
+                    {step === 14 && (
+                        <MyDoctors
+                            patientId={patientData?._id}
+                            setStep={setStep}
+                        />
+                    )}
                     {step === 20 && (
                         <DoctorForm1 formData={formData} setFormData={setFormData} setStep={setStep} />
                     )}
@@ -127,7 +138,7 @@ function App() {
                             formData={formData}
                             setFormData={setFormData}
                             setStep={setStep}
-                            setDoctorId={setDoctorId} // ✅ ADDED
+                            setDoctorId={setDoctorId}
                         />
                     )}
                     {step === 23 && <DoctorConfirmation formData={formData} />}
@@ -151,12 +162,16 @@ function App() {
                         <ReadOnlyConfirmation patient={selectedPatient} goBack={() => setStep(12)} />
                     )}
 
-                    {(step < 1 || (step > 13 && ![12, 13, 20, 21, 23, 24, 26, 99].includes(step))) && (
+                    {(step < 1 || (step > 14 && ![12, 13, 14, 20, 21, 23, 24, 26, 99].includes(step))) && (
                         <div>
                             <h2>Oops! Something went wrong.</h2>
                             <button onClick={goBackToWelcome}>Return to Home</button>
                         </div>
                     )}
+
+                    {step === 27 && <DoctorReadOnlyConfirmation selectedDoctor={selectedDoctor} setStep={setStep} />}
+
+
                 </div>
             </main>
         </>

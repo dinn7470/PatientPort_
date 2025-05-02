@@ -1,16 +1,17 @@
 import React from 'react';
+import './SignupRoleChoice.css';
 
 function SignupRoleChoice({ setStep }) {
     return (
-        <div className="signup-role-choice">
-            <h2>Sign Up As</h2>
-            <div className="signup-buttons">
-                <button onClick={() => setStep(3)}>Patient</button>
-                <button onClick={() => setStep(20)}>Doctor</button>
+        <div className="signup-container">
+            <h2 className="signup-title">Sign Up As</h2>
+
+            <div className="button-group">
+                <button className="role-btn1" onClick={() => setStep(3)}>Patient</button>
+                <button className="role-btn2" onClick={() => setStep(20)}>Doctor</button>
             </div>
-            <div className="login-buttons" style={{ marginTop: '1rem' }}>
-                <button type="button" onClick={() => setStep(1)}>Back</button>
-            </div>
+
+            <button className="back-btn" onClick={() => setStep(1)}>Back</button>
         </div>
     );
 }
