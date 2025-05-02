@@ -20,7 +20,7 @@ function DoctorForm3({ formData, setFormData, setStep }) {
 
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-            setStep(100); // Go to dashboard or login next
+            setStep(100);
         } catch (err) {
             setError(err.message);
         }

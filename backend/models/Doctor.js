@@ -9,7 +9,7 @@ const doctorSchema = new mongoose.Schema({
     clinicName: String,
     clinicAddress: String,
     medicalLicense: String,
-    patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient', default: [] }] // WHe default array
+    patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient', default: [] }]
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);

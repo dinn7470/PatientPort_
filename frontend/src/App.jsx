@@ -29,7 +29,7 @@ function App() {
     const [doctorId, setDoctorId] = useState(null);
     const [tempDoctorId, setTempDoctorId] = useState(null);
     const [selectedPatient, setSelectedPatient] = useState(null);
-    const [selectedDoctor, setSelectedDoctor] = useState(null); // ✅ NEW
+    const [selectedDoctor, setSelectedDoctor] = useState(null); //
 
     const [formData, setFormData] = useState({
         name: '',
