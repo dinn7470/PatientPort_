@@ -10,7 +10,12 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { emergencyContactName, emergencyContactRelationship, emergencyContactPhone, password } = formData;
+        const {
+            emergencyContactName,
+            emergencyContactRelationship,
+            emergencyContactPhone,
+            password
+        } = formData;
 
         if (!emergencyContactName || !emergencyContactRelationship || !emergencyContactPhone) {
             alert('Please fill out all emergency contact fields.');
@@ -28,11 +33,14 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
             return;
         }
 
+        //  Clean up the object before sending
+        const { _id, ...cleanForm } = formData;
+
         try {
             const res = await fetch('http://localhost:5000/api/patient', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(cleanForm),
             });
 
             const data = await res.json();
@@ -47,6 +55,7 @@ function ContactInfo({ formData, setFormData, setPatientData, nextStep, prevStep
             alert('Something went wrong.');
         }
     };
+
 
     return (
         <form className="contact-info-form" onSubmit={handleSubmit}>

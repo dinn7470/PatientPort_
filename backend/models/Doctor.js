@@ -1,14 +1,16 @@
+// models/Doctor.js
 import mongoose from 'mongoose';
 
-const DoctorSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+const doctorSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
     specialization: String,
     clinicName: String,
     clinicAddress: String,
-    medicalLicense: { type: Number, required: true, unique: true }, // ✅ Comma added here
-    patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }]
+    medicalLicense: String,
+    patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient', default: [] }] // WHe default array
 });
 
-export default mongoose.model('Doctor', DoctorSchema);
+const Doctor = mongoose.model('Doctor', doctorSchema);
+export default Doctor;

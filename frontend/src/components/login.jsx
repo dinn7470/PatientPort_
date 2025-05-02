@@ -3,6 +3,7 @@ import './Login.css';
 
 function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -54,13 +55,22 @@ function Login({ formData, setFormData, setPatientData, setStep, goBack }) {
             />
 
             <label>Password:</label>
-            <input
-                type="password"
-                name="password"
-                value={formData.password || ''}
-                onChange={handleChange}
-                required
-            />
+            <div className="password-wrapper">
+                <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    value={formData.password || ''}
+                    onChange={handleChange}
+                    required
+                />
+                <button
+                    type="button"
+                    className="toggle-password"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                >
+                    {showPassword ? 'Hide' : 'Show'}
+                </button>
+            </div>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
 

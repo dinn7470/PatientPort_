@@ -4,6 +4,7 @@ import './DoctorForm.css';
 function DoctorLogin({ setStep, setTempDoctorId }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
 
     const handleLogin = async (e) => {
@@ -19,10 +20,8 @@ function DoctorLogin({ setStep, setTempDoctorId }) {
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
 
-            // ✅ store tempDoctorId for ID prompt
             setTempDoctorId(data.tempDoctorId);
             setStep(26);
-
         } catch (err) {
             setError(err.message || 'Login failed.');
         }
@@ -44,19 +43,28 @@ function DoctorLogin({ setStep, setTempDoctorId }) {
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                    <div className="password-wrapper">
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <button
+                            type="button"
+                            className="toggle-password"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                        >
+                            {showPassword ? 'Hide' : 'Show'}
+                        </button>
+                    </div>
                 </div>
 
                 {error && <p className="error-message">{error}</p>}
 
                 <div className="navigation-buttons">
-                    <button type="submit">Log In</button>
                     <button type="button" onClick={() => setStep(1)}>Back</button>
+                    <button type="submit">Log In</button>
                 </div>
             </form>
         </div>

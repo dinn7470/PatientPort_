@@ -2,6 +2,7 @@ import express from 'express';
 import connectDB from './config/mongodb.js';
 import patientRoutes from './routes/patientRoutes.js';
 import emergencyRoutes from './routes/emergencyRoutes.js';
+import appointmentRoutes from './routes/appointment.js';
 import cors from 'cors';
 import doctorRoutes from './routes/doctor.js';
 
@@ -14,7 +15,8 @@ connectDB();
 app.use('/api/patient', patientRoutes);
 app.use('/api/emergency', emergencyRoutes);
 app.use('/api/doctor', doctorRoutes);
+app.use('/api/appointment', appointmentRoutes);
 
 app.listen(5000, () => {
-    console.log('✅ Server running on port 5000');
+    console.log(' Server running on port 5000');
 });

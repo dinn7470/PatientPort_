@@ -2,32 +2,26 @@ import React from 'react';
 import './DoctorForm.css';
 
 function ReadOnlyConfirmation({ patient, goBack }) {
-    return (
-        <div className="form-page">
-            <h2>Patient Information (Read-Only)</h2>
+        if (!patient) return <p>Loading patient data...</p>;
 
-            <div className="form-group"><strong>Name:</strong> {patient.name}</div>
-            <div className="form-group"><strong>Email:</strong> {patient.email}</div>
-            <div className="form-group"><strong>Date of Birth:</strong> {patient.dob}</div>
-            <div className="form-group"><strong>Weight:</strong> {patient.weight}</div>
-            <div className="form-group"><strong>Height:</strong> {patient.height}</div>
-            <div className="form-group"><strong>Gender:</strong> {patient.gender}</div>
-            <div className="form-group"><strong>Symptoms:</strong> {patient.symptoms}</div>
-            <div className="form-group"><strong>Conditions:</strong> {patient.conditions}</div>
-            <div className="form-group"><strong>Allergies:</strong> {patient.allergies}</div>
-            <div className="form-group"><strong>Medications:</strong> {patient.medications.join(', ')}</div>
-            <div className="form-group"><strong>Smoking:</strong> {patient.smoking}</div>
-            <div className="form-group"><strong>Alcohol:</strong> {patient.alcohol}</div>
-            <div className="form-group"><strong>Exercise:</strong> {patient.exercise}</div>
-            <div className="form-group"><strong>Emergency Contact:</strong> {patient.emergencyContactName}</div>
-            <div className="form-group"><strong>Relationship:</strong> {patient.emergencyContactRelationship}</div>
-            <div className="form-group"><strong>Phone:</strong> {patient.emergencyContactPhone}</div>
+        return (
+            <div className="read-only-confirmation">
+                    <h2>Patient Details: {patient.name}</h2>
+                    <p><strong>Email:</strong> {patient.email || 'N/A'}</p>
+                    <p><strong>DOB:</strong> {patient.dob || 'N/A'}</p>
+                    <p><strong>Gender:</strong> {patient.gender || 'N/A'}</p>
+                    <p><strong>Height:</strong> {patient.height || 'N/A'}</p>
+                    <p><strong>Weight:</strong> {patient.weight || 'N/A'}</p>
+                    <p><strong>Conditions:</strong> {patient.conditions || 'N/A'}</p>
+                    <p><strong>Allergies:</strong> {patient.allergies || 'N/A'}</p>
+                    <p><strong>Medications:</strong> {patient.medications?.join(', ') || 'N/A'}</p>
+                    <p><strong>Smoking:</strong> {patient.smoking || 'N/A'}</p>
+                    <p><strong>Alcohol:</strong> {patient.alcohol || 'N/A'}</p>
+                    <p><strong>Exercise:</strong> {patient.exercise || 'N/A'}</p>
 
-            <div className="navigation-buttons">
-                <button onClick={goBack}>Back to Dashboard</button>
+                    <button onClick={goBack}>Back to Dashboard</button>
             </div>
-        </div>
-    );
+        );
 }
 
 export default ReadOnlyConfirmation;

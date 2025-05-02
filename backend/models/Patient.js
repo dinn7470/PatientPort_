@@ -7,7 +7,8 @@ const patientSchema = new mongoose.Schema({
     password: { type: String, required: true },
     dob: String,
     weight: String,
-    height: String,
+    heightFeet: String,
+    heightInches: String,
     gender: String,
     symptoms: String,
     conditions: String,
@@ -16,24 +17,19 @@ const patientSchema = new mongoose.Schema({
     smoking: String,
     alcohol: String,
     exercise: String,
-    securityQuestion: String,
-    securityAnswer: String,
     emergencyContactName: String,
     emergencyContactRelationship: String,
     emergencyContactPhone: String,
+    securityQuestion: String,
+    securityAnswer: String,
+    doctors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }] //
 });
 
-// ✅ Hash password before saving
+// Hash password before save
 patientSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (err) {
-        next(err);
-    }
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
 });
 
-const Patient = mongoose.model('Patient', patientSchema);
-export default Patient;
+export default mongoose.model('Patient', patientSchema);

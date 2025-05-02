@@ -21,7 +21,7 @@ function EmergencyAccess({ setPatientData, setAccessType, setStep }) {
             const data = await res.json();
             if (res.ok) {
                 setGeneratedCode(data.code);
-                setLocalStep(2); // ✅ this was the conflicting variable
+                setLocalStep(2);
             } else {
                 setError(data.message);
             }

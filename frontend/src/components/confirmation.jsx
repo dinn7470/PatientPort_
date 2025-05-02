@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Confirmation.css';
 
-function Confirmation({ formData, patientData, setPatientData, accessType }) {
+function Confirmation({ formData, patientData, setPatientData, accessType, setStep}) {
     const [editData, setEditData] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [showSnackbar, setShowSnackbar] = useState(false);
+    const [showDoctors, setShowDoctors] = useState(false);
+    const [doctors, setDoctors] = useState([]);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         if (patientData) {
@@ -42,14 +45,47 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
         }
     };
 
+    const handleScheduleClick = async () => {
+        try {
+            const res = await fetch('http://localhost:5000/api/doctor/all');
+            const data = await res.json();
+            setDoctors(data);
+            setShowDoctors(true);
+        } catch (err) {
+            console.error('Failed to fetch doctors:', err);
+        }
+    };
+
+    const handleScheduleWithDoctor = async (doctorId) => {
+        try {
+            const res = await fetch('http://localhost:5000/api/appointment/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    doctorId,
+                    patientId: editData._id,
+                }),
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error);
+
+            setMessage('Appointment successfully scheduled!');
+            setShowDoctors(false);
+        } catch (err) {
+            console.error('Failed to schedule appointment:', err);
+            setMessage('Error scheduling appointment.');
+        }
+    };
+
     if (!editData) return <div>Loading your information...</div>;
 
     return (
         <div className="confirmation">
             <h2>
                 {accessType === 'emergency'
-                    ? `Vital Information for ${editData.name || "N/A"}`
-                    : `Welcome, ${editData.name || "N/A"}!`}
+                    ? `Vital Information for ${editData.name || 'N/A'}`
+                    : `Welcome, ${editData.name || 'N/A'}!`}
             </h2>
 
             {isEditing ? (
@@ -57,29 +93,22 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     <h3>Basic Info</h3>
                     <label>Email:</label>
                     <input name="email" value={editData.email || ''} disabled />
-
                     <label>Birthday:</label>
                     <input name="dob" value={editData.dob || ''} onChange={handleChange} />
-
                     <label>Gender:</label>
                     <input name="gender" value={editData.gender || ''} onChange={handleChange} />
-
                     <label>Weight (lbs):</label>
                     <input name="weight" value={editData.weight || ''} onChange={handleChange} />
-
                     <label>Height:</label>
                     <input name="height" value={editData.height || ''} onChange={handleChange} />
 
                     <h3>Medical Info</h3>
                     <label>Symptoms:</label>
                     <input name="symptoms" value={editData.symptoms || ''} onChange={handleChange} />
-
                     <label>Conditions:</label>
                     <input name="conditions" value={editData.conditions || ''} onChange={handleChange} />
-
                     <label>Allergies:</label>
                     <input name="allergies" value={editData.allergies || ''} onChange={handleChange} />
-
                     <label>Medications:</label>
                     <input
                         name="medicationsText"
@@ -97,10 +126,8 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     <h3>Lifestyle Info</h3>
                     <label>Smoking:</label>
                     <input name="smoking" value={editData.smoking || ''} onChange={handleChange} />
-
                     <label>Alcohol:</label>
                     <input name="alcohol" value={editData.alcohol || ''} onChange={handleChange} />
-
                     <label>Exercise:</label>
                     <input name="exercise" value={editData.exercise || ''} onChange={handleChange} />
 
@@ -117,10 +144,8 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     <h3>Emergency Contact</h3>
                     <label>Contact Name:</label>
                     <input name="emergencyContactName" value={editData.emergencyContactName || ''} onChange={handleChange} />
-
                     <label>Relationship:</label>
                     <input name="emergencyContactRelationship" value={editData.emergencyContactRelationship || ''} onChange={handleChange} />
-
                     <label>Phone:</label>
                     <input name="emergencyContactPhone" value={editData.emergencyContactPhone || ''} onChange={handleChange} />
 
@@ -159,15 +184,40 @@ function Confirmation({ formData, patientData, setPatientData, accessType }) {
                     <p><strong>Relationship:</strong> {editData.emergencyContactRelationship || 'N/A'}</p>
                     <p><strong>Phone:</strong> {editData.emergencyContactPhone || 'N/A'}</p>
 
-                    {accessType !== 'emergency' && (
-                        <button onClick={() => setIsEditing(true)}>Edit</button>
+                    {accessType === 'patient' && (
+                        <div style={{marginTop: '2rem', textAlign: 'center'}}>
+                            <button  onClick={() => setStep(14)}
+                                style={{ backgroundColor: '#007bff',
+                                    color: 'white',
+                                    border: 'none',
+                                    padding: '0.75rem 1.5rem',
+                                    borderRadius: '8px',
+                                    fontSize: '1rem',
+                                    cursor: 'pointer',
+                                }}>
+                                My Appointments
+                            </button>
+                        </div>
                     )}
                 </>
             )}
 
-            {showSnackbar && (
-                <div className="snackbar">Your information has been updated!</div>
+            {showDoctors && (
+                <div className="form-group">
+                    <h3>Available Doctors</h3>
+                    <ul>
+                        {doctors.map(doc => (
+                            <li key={doc._id}>
+                                {doc.name} — {doc.specialization || 'General'} at {doc.clinicName}{' '}
+                                <button onClick={() => handleScheduleWithDoctor(doc._id)}>Schedule</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             )}
+
+            {message && <p style={{ color: 'green' }}>{message}</p>}
+            {showSnackbar && <div className="snackbar">Your information has been updated!</div>}
 
             <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                 <button
